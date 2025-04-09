@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link href="Styles/style.css" type="text/css" rel="stylesheet"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>EDCHist - Gìn giữ lịch sử Việt</title>
+</head>
+<script>
+  function toggleMenu(button) {
+    const menu = document.getElementById("mainMenu");
+    const bars = button.querySelector(".fa-bars");
+    const times = button.querySelector(".fa-times");
+
+    menu.classList.toggle("show");
+
+    if (menu.classList.contains("show")) {
+      bars.style.display = "none";
+      times.style.display = "inline";
+    } else {
+      bars.style.display = "inline";
+      times.style.display = "none";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuLinks = document.querySelectorAll(".nav-item a");
+    const menu = document.getElementById("mainMenu");
+    const hamburger = document.querySelector(".hamburger");
+    const bars = hamburger.querySelector(".fa-bars");
+    const times = hamburger.querySelector(".fa-times");
+
+    menuLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 768 && menu.classList.contains("show")) {
+          menu.classList.remove("show");
+          bars.style.display = "inline";
+          times.style.display = "none";
+        }
+      });
+    });
+  });
+</script>
+<body>
+	<div class="banner">
+    	<img src="images/banner.png" alt = "Banner"/>
+  </div>
+  <header>
+    <nav>
+  <div class="navbar-wrapper">
+    <div class="hamburger" onclick="toggleMenu(this)">
+  <i class="fas fa-bars"></i>
+  <i class="fas fa-times" style="display: none;"></i>
+</div>
+    <div class="navbar" id="mainMenu">
+      <div class="nav-item"><b>TRANG CHỦ</b></div>
+
+      <div class="nav-item">
+        <b>DÒNG LỊCH SỬ</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          	<a href="#">Hồng Bàng & Văn Lang</a>
+          	<a href="#">Âu Lạc</a>
+          	<a href="#">Bắc thuộc lần I</a>
+			<a href="#">Trương Nữ Vương</a>
+			<a href="#">Bắc thuộc lần II</a>
+			<a href="#">Nhà Lý & Nhà Triệu</a>
+			<a href="#">Bắc thuộc lần III</a>
+			<a href="#">Thời kỳ xây nền tự chủ</a>
+			<a href="#">Nhà Ngô</a>
+			<a href="#">Nhà Đinh</a>
+			<a href="#">Nhà Tiền Lê</a>
+			<a href="#">Nhà Lý</a>
+			<a href="#">Nhà Trần</a>
+			<a href="#">Nhà Hồ</a>
+			<a href="#">Nhà Hậu Trần</a>
+			<a href="#">Bắc thuộc lần IV</a>
+			<a href="#">Nhà Hậu Lê</a>
+			<a href="#">Nam Bắc Triều</a>
+			<a href="#">Trịnh Nguyễn Phân Tranh</a>
+			<a href="#">Nhà Tây Sơn</a>
+			<a href="#">Nhà Nguyễn</a>
+			<a href="#">Pháp thuộc</a>
+			<a href="#">Việt Nam Dân Chủ Cộng Hòa</a>
+			<a href="#">Cộng hòa xã hội chủ nghĩa Việt Nam</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <b>TƯ LIỆU</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="#">Quân sự</a>
+          <a href="#">Tác phẩm</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <b>NHÂN VẬT</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="#">Anh hùng dân tộc</a>
+          <a href="#">Danh nhân văn hóa</a>
+        </div>
+      </div>
+
+      <div class="nav-item"><b>DI TÍCH</b></div>
+      <div class="nav-item"><b>NGÀY NAY</b></div>
+      <div class="nav-item"><b>SÁCH</b></div>
+      <div class="nav-item"><b>Q&A</b></div>
+    </div>
+  </div>
+</nav>
+  </header>
+
+  <section class="main-content">
+    <h1>Chào mừng đến với EDCHIST</h1>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+
+      <div class="footer-column">
+        <h3>Anh hùng dân tộc tiêu biểu</h3>
+        <ul>
+          <li>> Lê Thái Tổ</li>
+          <li>> Hồ Chí Minh</li>
+          <li>> Hùng Vương</li>
+          <li>> Lý Thường Kiệt</li>
+          <li>> Nguyễn Huệ</li>
+          <li>> Nguyễn Trãi</li>
+          <li>> Lý Nam Đế</li>
+          <li>> Trần Hưng Đạo</li>
+          <li>> Đinh Tiên Hoàng</li>
+          <li>> Ngô Quyền</li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Tư liệu lịch sử</h3>
+        <ul>
+          <li>> Vấn đề biên giới Việt-Trung thời Mạc</li>
+          <li>> Ngoại giao Việt Nam thời Tây Sơn</li>
+          <li>> Biểu đồ các nhân vật lịch sử theo dòng thời gian</li>
+          <li>> Danh sách Trạng nguyên Việt Nam</li>
+          <li>> Ngoại giao Việt Nam thời Nguyễn</li>
+          <li>> Trận Điện Biên Phủ trên không năm 1972</li>
+          <li>> Trận Ngọc Hồi - Đống Đa năm 1789</li>
+          <li>> Trận Cẩm Sa năm 1775</li>
+          <li>> Trận Rạch Gầm – Xoài Mút năm 1785</li>
+          <li>> Lãnh thổ Việt Nam qua từng thời kỳ</li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Di tích lịch sử</h3>
+        <ul>
+          <li>> Khu di tích Pác Bó</li>
+          <li>> Đền Hùng</li>
+          <li>> Khu di tích Chủ tịch Hồ Chí Minh tại Phủ Chủ tịch</li>
+          <li>> Chiến khu Tân Trào</li>
+          <li>> Đền Trần (Thái Bình)</li>
+          <li>> Đền Ngọc Sơn</li>
+          <li>> Thành Cổ Loa</li>
+          <li>> Chùa Thầy</li>
+          <li>> Khu di tích chiến thắng Điện Biên Phủ</li>
+          <li>> Văn Miếu - Quốc Tử Giám</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <a href="#">Giới thiệu</a> /
+      <a href="#">Quyền riêng tư</a> /
+      <a href="#">Liên hệ</a> /
+      <a href="#">Địa danh</a> /
+      <a href="#">Trang Facebook</a> 
+    </div>
+  </footer>
+</body>
+</html>
