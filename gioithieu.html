@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giới thiệu về tôi</title>
+  <link href="Styles/gioithieu.css" type="text/css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="nav-item"><b><a href="index.html">Trang chủ</a></b></div>
+      <div class="nav-item"><b><a href="#">Giới thiệu</a></b></div>
+    </div>
+  </header>
+
+  <div class="main-content">
+    <div class="search-bar">
+      <div class="breadcrumb">
+        <a href="index.html">Trang chủ</a> <span>/</span> <span>Giới thiệu</span>
+      </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="main-column">
+        <div class="content-section">
+          <h2 class="section-title">Giới thiệu về tôi</h2>
+          <p class="section-content">
+            Xin chào! Tôi là <strong>Hoàng Nhật Hải Đăng</strong>, một người đam mê công nghệ và sáng tạo nội dung số. Hành trình của tôi trong lĩnh vực thiết kế web và lập trình bắt đầu từ năm 2021, với mong muốn không chỉ làm chủ công nghệ mà còn chia sẻ kiến thức đến cộng đồng.
+          </p>
+          <p class="section-content">
+            Bên cạnh sự yêu thích với các công nghệ web hiện đại, ngôn ngữ HTML, CSS, JavaScript, tôi còn dành một tình cảm đặc biệt cho lịch sử và văn hóa Việt Nam — đặc biệt là thời kỳ cổ đại và những truyền thuyết dân gian. Lịch sử không chỉ giúp tôi hiểu sâu về cội nguồn, mà còn là nguồn cảm hứng lớn trong việc sáng tạo nội dung.
+          </p>
+          <p class="section-content">
+            Website này là nơi tôi tổng hợp những kiến thức, trải nghiệm và góc nhìn cá nhân, hy vọng sẽ mang lại giá trị cho những ai cùng đam mê.
+          </p>
+            <p class="section-content">
+            Rất mong nhận được sự góp ý, kết nối và đồng hành từ các bạn gần xa!
+          </p>
+        </div>
+      </div>
+
+      <div class="sidebar-column">
+        <div class="sidebar-title">Mục lục</div>
+        <ul class="sidebar-menu">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="#">Giới thiệu</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      
+      <div class="footer-column">
+        <h3>Kết nối</h3>
+        <ul>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Zalo</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 Hoàng Nhật Hải Đăng. All rights reserved.
+    </div>
+  </footer>
+
+  <button id="topButton" title="Lên đầu trang"><i class="fas fa-chevron-up"></i></button>
+  <div id="chatIcon"><i class="fas fa-comment-alt"></i></div>
+  <div id="chatBox">
+    <div class="chat-header">Hỗ trợ <i class="fas fa-times" onclick="document.getElementById('chatBox').style.display='none'"></i></div>
+    <div class="chat-body">
+      <div class="chat-message bot-message">Xin chào! Tôi có thể giúp gì cho bạn?</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" placeholder="Nhập nội dung...">
+      <button><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+  <script>
+    const chatIcon = document.getElementById('chatIcon');
+    const chatBox = document.getElementById('chatBox');
+    chatIcon.onclick = () => {
+      chatBox.style.display = chatBox.style.display === 'flex' ? 'none' : 'flex';
+    };
+
+    const topButton = document.getElementById("topButton");
+    window.onscroll = function() {
+      topButton.style.display = window.scrollY > 300 ? "block" : "none";
+    };
+    topButton.onclick = function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link href="Styles/aulac.css" type="text/css" rel="stylesheet"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Trần Hưng Đạo</title>
+</head>
+<script>
+	//menu for mobile
+  function toggleMenu(button) {
+    const menu = document.getElementById("mainMenu");
+    const bars = button.querySelector(".fa-bars");
+    const times = button.querySelector(".fa-times");
+
+    menu.classList.toggle("show");
+
+    if (menu.classList.contains("show")) {
+      bars.style.display = "none";
+      times.style.display = "inline";
+    } else {
+      bars.style.display = "inline";
+      times.style.display = "none";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuLinks = document.querySelectorAll(".nav-item a");
+    const menu = document.getElementById("mainMenu");
+    const hamburger = document.querySelector(".hamburger");
+    const bars = hamburger.querySelector(".fa-bars");
+    const times = hamburger.querySelector(".fa-times");
+
+    menuLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 768 && menu.classList.contains("show")) {
+          menu.classList.remove("show");
+          bars.style.display = "inline";
+          times.style.display = "none";
+        }
+      });
+    });
+  });
+	// topbutton
+window.onscroll = function() {
+           const topButton = document.getElementById("topButton");
+           if (document.body.scrollTop > 000 || document.documentElement.scrollTop > 000) {
+               topButton.style.display = "block";
+           } else {
+               topButton.style.display = "none";
+           }
+        };
+        function scrollToTop() {
+           window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+	//chatbox
+let chatOpen = false;
+
+  // Danh sách phản hồi tùy chỉnh
+  const responses = {
+    "xin chào": "Chào bạn! Tôi có thể giúp gì cho bạn?",
+    "bạn là ai": "Tôi là trợ lý tư vấn lịch sử đây!",
+    "lịch sử việt nam": "Việt Nam có một lịch sử phong phú kéo dài hơn 4000 năm!",
+    "hồ chí minh": "Chủ tịch Hồ Chí Minh là vị lãnh tụ vĩ đại của dân tộc Việt Nam.",
+    "trần hưng đạo": "Ông là một danh tướng thời Trần, đã đánh bại quân Nguyên Mông.",
+    "điện biên phủ": "Trận Điện Biên Phủ năm 1954 là chiến thắng vang dội của quân đội ta.",
+    "liên hệ": "Bạn có thể liên hệ với chúng tôi qua mục 'Liên hệ' phía dưới.",
+    "tạm biệt": "Cảm ơn bạn đã trò chuyện! Hẹn gặp lại.",
+    "": "Xin lỗi, tôi giúp được gì cho bạn!"
+  };
+
+  // Tìm phản hồi gần đúng
+  function findResponse(message) {
+    message = message.toLowerCase();
+    for (let key in responses) {
+      if (message.includes(key)) {
+        return responses[key];
+      }
+    }
+    return "Xin lỗi, tôi chưa hiểu. Bạn có thể nói lại rõ hơn?";
+  }
+
+  function toggleChat() {
+    const chatBox = document.getElementById("chatBox");
+    const chatMessages = document.getElementById("chatMessages");
+
+    if (!chatOpen) {
+      chatBox.style.display = "flex";
+      setTimeout(() => {
+        addMessage("Xin chào!", "bot-message");
+      }, 300);
+    } else {
+      chatBox.style.display = "none";
+    }
+    chatOpen = !chatOpen;
+  }
+
+  function sendMessage() {
+    const input = document.getElementById("userInput");
+    const message = input.value.trim();
+    if (message !== "") {
+      addMessage(message, "user-message");
+      input.value = "";
+
+      // Bot phản hồi sau 1 giây
+      setTimeout(() => {
+        const reply = findResponse(message);
+        addMessage(reply, "bot-message");
+      }, 1000);
+    }
+  }
+
+  function addMessage(text, className) {
+    const chatMessages = document.getElementById("chatMessages");
+    const msg = document.createElement("div");
+    msg.className = `chat-message ${className}`;
+    msg.innerText = text;
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+	document.addEventListener("DOMContentLoaded", function () {
+  const input = document.getElementById("userInput");
+  input.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Ngăn form reload nếu có
+      sendMessage();
+    }
+  });
+});
+
+</script>
+<body>
+	<div class="banner">
+    	<img src="images/trongdong.gif" alt = "Banner"/>
+  </div>
+  <header>
+    <nav>
+  <div class="navbar-wrapper">
+    <div class="hamburger" onclick="toggleMenu(this)">
+  <i class="fas fa-bars"></i>
+  <i class="fas fa-times" style="display: none;"></i>
+</div>
+    <div class="navbar" id="mainMenu">
+      <div class="nav-item"><b><a href = "index.html" class="trangchu">TRANG CHỦ</a></b></div>
+
+      <div class="nav-item">
+        <b>DÒNG LỊCH SỬ</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          	<a href="hongbangvanlang.html">Hồng Bàng & Văn Lang</a>
+          	<a href="aulac.html">Âu Lạc & Nam Việt</a>
+          	<a href="bacthuoclan1.html">Bắc thuộc lần I</a>
+			<a href="trungnuvuong.html">Trưng Nữ Vương</a>
+			<a href="bacthuoclan2.html">Bắc thuộc lần II</a>
+			<a href="nhalynhatrieu.html">Nhà Lý & Nhà Triệu</a>
+			<a href="bacthuoclan3.html">Bắc thuộc lần III</a>
+			<a href="tuchu.html">Thời kỳ xây nền tự chủ</a>
+			<a href="nhango.html">Nhà Ngô</a>
+			<a href="nhadinh.html">Nhà Đinh</a>
+			<a href="nhatienle.html">Nhà Tiền Lê</a>
+			<a href="nhaly.html">Nhà Lý</a>
+			<a href="nhatran.html">Nhà Trần</a>
+			<a href="nhaho.html">Nhà Hồ</a>
+			<a href="nhahautran.html">Nhà Hậu Trần</a>
+			<a href="bacthuoclan4.html">Bắc thuộc lần IV</a>
+			<a href="nhahaule.html">Nhà Hậu Lê</a>
+			<a href="nambactrieu.html">Nam Bắc Triều</a>
+			<a href="trinhnguyen.html">Trịnh Nguyễn Phân Tranh</a>
+			<a href="nhatayson.html">Nhà Tây Sơn</a>
+			<a href="nhanguyen.html">Nhà Nguyễn</a>
+			<a href="phapthuoc.html">Pháp thuộc</a>
+			<a href="vietnamdcch.html">Việt Nam Dân Chủ Cộng Hòa</a>
+			<a href="chxhcnvn.html">Cộng hòa xã hội chủ nghĩa Việt Nam</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <b>TƯ LIỆU</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="quansu.html">Quân sự</a>
+          <a href="tacpham.html">Tác phẩm</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <b>NHÂN VẬT</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="anhhungdantoc.html">Anh hùng dân tộc</a>
+          <a href="danhnhanvanhoa.html">Danh nhân văn hóa</a>
+        </div>
+      </div>
+
+      <div class="nav-item"><b><a href="ditich.html">DI TÍCH</a></b></div>
+      <div class="nav-item"><b><a href="ngaynay.html">NGÀY NAY</a></b></div>
+      <div class="nav-item"><b><a href="cauhoi.html">Q&A</a></b></div>
+    </div>
+  </div>
+</nav>
+  </header>
+
+  <section class="main-content">
+<div class="search-bar">
+	<div class="breadcrumb">
+    Bạn đang ở:
+    <a href="index.html">Trang chủ</a> /
+    <a href="#">Nhân vật</a> /
+    <a href="tranhungdao.html">Trần Hưng Đạo</a>
+  </div>
+  <form action="https://www.google.com/search" method="GET" target="_blank">
+    <input type="text" name="q" placeholder="Tìm kiếm trên Google...">
+    <button type="submit">Tìm kiếm</button>
+  </form>
+</div>
+	  
+<div class="content-wrapper">
+  <div class="main-column">
+    <div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Nhân Vật Lịch Sử - Trần Hưng Đạo</a>
+  </h2>
+    <div class="section-image">
+    <img src="images/tranhungdao.jpg" alt="Mô tả ảnh" class="xichquy">
+  </div>
+  <p class="section-content">
+    Trần Hưng Đạo tên thật là Trần Quốc Tuấn, sinh khoảng năm 1228, mất năm 1300. Ông là con trai của An Sinh Vương Trần Liễu, cháu nội của Trần Thừa – người sáng lập ra nhà Trần. Ông sinh ra và lớn lên trong giai đoạn đất nước đang trên đà phát triển nhưng cũng đứng trước hiểm họa xâm lăng từ phương Bắc.
+  </p>
+    <p class="section-content">
+    Ngay từ nhỏ, Trần Quốc Tuấn đã nổi tiếng thông minh, học rộng, giỏi binh pháp. Dù từng mang mối thù gia tộc (cha ông là Trần Liễu từng bị ép nhường vợ cho vua Trần Thái Tông), ông vẫn đặt đại nghĩa lên trên tất cả, trung thành tuyệt đối với triều đình và quốc gia.
+  </p>
+</div>
+	  
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Trí tuệ và tài thao lược kiệt xuất</a>
+  </h2>
+  <p class="section-content">
+    Trần Hưng Đạo là vị thống soái quân sự vĩ đại, người giữ vai trò chủ chốt trong ba lần kháng chiến chống quân xâm lược Nguyên – Mông (năm 1258, 1285 và 1288). Với tài trí, lòng dũng cảm và khả năng đoàn kết tướng sĩ, ông nhiều lần làm nên những chiến thắng lẫy lừng trong lịch sử quân sự thế giới.
+  </p>
+    <p class="section-content">
+    Ông còn là người có tầm nhìn xa trông rộng, luôn đề cao sức mạnh đoàn kết toàn dân và sức mạnh của chính nghĩa. Ngoài mặt trận, ông là tổng chỉ huy tài ba. Trong triều, ông là người cố vấn trung thành và khôn ngoan cho nhà vua, giữ vững an ninh quốc gia.
+  </p>
+</div>
+      
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#"> Những chiến công lừng lẫy</a>
+  </h2>
+  <p class="section-content">
+    🔹 Kháng chiến lần 1 (1258):
+  </p>
+    <p class="section-content">
+    Quân Mông Cổ xâm lược Đại Việt lần đầu.
+  </p>
+    <p class="section-content">
+    Dù mới có kinh nghiệm ban đầu, Trần Hưng Đạo cùng triều đình đã tổ chức phản công và đẩy lùi quân giặc chỉ trong thời gian ngắn.
+  </p>
+    <p class="section-content">
+    🔹 Kháng chiến lần 2 (1285):
+  </p>
+    <p class="section-content">
+    Dưới trướng Hốt Tất Liệt, quân Nguyên – Mông ồ ạt kéo sang lần nữa.
+  </p>
+    <p class="section-content">
+    Trần Hưng Đạo dùng kế vườn không nhà trống, kết hợp phục kích và du kích, tiêu diệt hơn 10 vạn quân địch, đặc biệt trong trận Tây Kết và Chương Dương – Vạn Kiếp.
+  </p>
+    <p class="section-content">
+    🔹 Kháng chiến lần 3 (1288):
+  </p>
+    <p class="section-content">
+    Trận Bạch Đằng năm 1288 là đỉnh cao tài năng quân sự của ông.
+  </p>
+    <p class="section-content">
+    Ông chỉ huy bố trí cọc gỗ ngầm dưới lòng sông Bạch Đằng, chờ nước triều lên rồi rút lui nhử địch vào bẫy.
+  </p>
+    <p class="section-content">
+    Khi thủy triều rút, quân Nguyên bị cắm cọc, thuyền mắc kẹt, quân Đại Việt đổ ra đánh tan tành.
+  </p>
+    <p class="section-content">
+    Đây là một trong những trận hải chiến tiêu biểu nhất thế giới thời trung đại.
+  </p>
+</div>
+      
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Tầm vóc và di sản muôn đời</a>
+  </h2>
+  <p class="section-content">
+    Trần Hưng Đạo không chỉ là danh tướng bất bại mà còn là một nhà chiến lược quân sự và tư tưởng lớn. Ông để lại nhiều di sản có giá trị như:
+  </p>
+    <p class="section-content">
+    &nbsp;&nbsp;"Hịch tướng sĩ" – áng văn chính luận hùng hồn, kêu gọi lòng yêu nước, trách nhiệm bảo vệ giang sơn.
+  </p>
+    <p class="section-content">
+    &nbsp;&nbsp;Tư tưởng quân sự nhân đạo, đề cao đạo lý “quân với dân như cá với nước”.
+  </p>
+    <p class="section-content">
+    &nbsp;&nbsp;Tấm gương sáng ngời về lòng trung quân ái quốc, vượt lên trên thù riêng vì đại nghĩa dân tộc.
+  </p>
+    <p class="section-content">
+    Ông được nhân dân tôn kính gọi là Đức Thánh Trần, lập đền thờ ở khắp nơi. Ngày mất của ông (20 tháng 8 âm lịch) trở thành ngày lễ truyền thống tưởng niệm vị anh hùng dân tộc.
+  </p>
+</div>
+  </div>
+	
+  <div class="sidebar-column">
+  <h3 class="sidebar-title">CÁC THỜI KỲ LỊCH SỬ</h3>
+  <ul class="sidebar-menu">
+    <li><a href="hongbangvanlang.html">Hồng Bàng & Văn Lang</a></li>
+    <li><a href="aulac.html">Âu Lạc & Nam Việt</a></li>
+    <li><a href="bacthuoclan1.html">Bắc thuộc lần I</a></li>
+    <li><a href="trungnuvuong.html">Trưng Nữ Vương</a></li>
+    <li><a href="bacthuoclan2.html">Bắc thuộc lần II</a></li>
+    <li><a href="nhalynhatrieu.html">Nhà Lý & Nhà Triệu</a></li>
+    <li><a href="bacthuoclan3.html">Bắc thuộc lần III</a></li>
+    <li><a href="tuchu.html">Thời kỳ xây nền tự chủ</a></li>
+    <li><a href="nhango.html">Nhà Ngô</a></li>
+    <li><a href="nhadinh.html">Nhà Đinh</a></li>
+    <li><a href="nhatienle.html">Nhà Tiền Lê</a></li>
+    <li><a href="nhaly.html">Nhà Lý</a></li>
+    <li><a href="nhatran.html">Nhà Trần</a></li>
+    <li><a href="nhaho.html">Nhà Hồ</a></li>
+    <li><a href="nhahautran.html">Nhà Hậu Trần</a></li>
+    <li><a href="bacthuoclan4.html">Bắc thuộc lần IV</a></li>
+    <li><a href="nhahaule.html">Nhà Hậu Lê</a></li>
+    <li><a href="nambactrieu.html">Nam Bắc Triều</a></li>
+    <li><a href="trinhnguyen.html">Trịnh Nguyễn Phân Tranh</a></li>
+    <li><a href="nhatayson.html">Nhà Tây Sơn</a></li>
+    <li><a href="nhanguyen.html">Nhà Nguyễn</a></li>
+    <li><a href="phapthuoc.html">Pháp thuộc</a></li>
+    <li><a href="vietnamdcch.html">Việt Nam Dân Chủ Cộng Hòa</a></li>
+    <li><a href="chxhcnvn.html">Cộng hòa XHCN Việt Nam</a></li>
+  </ul>
+	  <h3 class="sidebar-title">Tư liệu</h3>
+  <ul class="sidebar-menu">
+    <li><a href="dbptrenkhong_1972.html">Trận Điện Biên Phủ trên không năm 1972</a></li>
+    <li><a href="biengioi_taynam.html">Chiến tranh biên giới Tây Nam năm 1975 - 1978</a></li>
+    <li><a href="chiendichmuaxuan.html">Chiến dịch mùa Xuân 1975</a></li>
+    <li><a href="chiendichtaynguyen.html">Chiến dịch Tây Nguyên 1975</a></li>
+    <li><a href="tranmauthan.html">Trận Mậu Thân tại Huế năm 1968</a></li>
+    <li><a href="namquocsonha.html">Nam quốc sơn hà - Bản tuyên ngôn độc lập đầu tiên</a></li>
+    <li><a href="tuyenngondoclap.html">Tuyên ngôn độc lập Việt Nam Dân chủ Cộng hòa</a></li>
+    <li><a href="chuviet.html">Lịch sử Chữ viết tiếng Việt</a></li>
+    <li><a href="hichtuongsi.html">Hịch tướng sĩ - Dụ chư tỳ tướng hịch văn</a></li>
+  </ul>
+</div>
+</div>
+  </section>
+<footer>
+  <div class="footer-container">
+
+  <div class="footer-column">
+    <h3>Anh hùng dân tộc tiêu biểu</h3>
+    <ul>
+      <li><a href="lethaito.html">Lê Thái Tổ</a></li>
+      <li><a href="hochiminh.html">Hồ Chí Minh</a></li>
+      <li><a href="hungvuong.html">Hùng Vương</a></li>
+      <li><a href="lythuongkiet.html">Lý Thường Kiệt</a></li>
+      <li><a href="nguyenhue.html">Nguyễn Huệ</a></li>
+      <li><a href="nguyentrai.html">Nguyễn Trãi</a></li>
+      <li><a href="lynamde.html">Lý Nam Đế</a></li>
+      <li><a href="tranhungdao.html">Trần Hưng Đạo</a></li>
+      <li><a href="dinhtienhoang.html">Đinh Tiên Hoàng</a></li>
+      <li><a href="ngoquyen.html">Ngô Quyền</a></li>
+    </ul>
+  </div>
+
+  <div class="footer-column">
+    <h3>Tư liệu lịch sử</h3>
+    <ul>
+      <li><a href="biengioi_viettrung.html">Vấn đề biên giới Việt-Trung thời Mạc</a></li>
+      <li><a href="ngoaigiaovietnam_tayson.html">Ngoại giao Việt Nam thời Tây Sơn</a></li>
+      <li><a href="bieudocacnhanvatls.html">Biểu đồ các nhân vật lịch sử theo dòng thời gian</a></li>
+      <li><a href="dstrangnguyen.html">Danh sách Trạng nguyên Việt Nam</a></li>
+      <li><a href="ngoaigiaovn_nguyen.html">Ngoại giao Việt Nam thời Nguyễn</a></li>
+      <li><a href="dbptrenkhong_1972.html">Trận Điện Biên Phủ trên không năm 1972</a></li>
+      <li><a href="tranngochoi_dongda.html">Trận Ngọc Hồi - Đống Đa năm 1789</a></li>
+      <li><a href="trancamsa.html">Trận Cẩm Sa năm 1775</a></li>
+      <li><a href="tranrachgam_xoaimut.html">Trận Rạch Gầm – Xoài Mút năm 1785</a></li>
+      <li><a href="lanhthovietnam.html">Lãnh thổ Việt Nam qua từng thời kỳ</a></li>
+    </ul>
+  </div>
+
+  <div class="footer-column">
+    <h3>Di tích lịch sử</h3>
+    <ul>
+      <li><a href="ditichpacbo.html">Khu di tích Pác Bó</a></li>
+      <li><a href="denhung.html">Đền Hùng</a></li>
+      <li><a href="ditich_hcm_phuchutich.html">Khu di tích Chủ tịch Hồ Chí Minh tại Phủ Chủ tịch</a></li>
+      <li><a href="chienkhutantrao.html">Chiến khu Tân Trào</a></li>
+      <li><a href="dentran.html">Đền Trần (Thái Bình)</a></li>
+      <li><a href="denngocson.html">Đền Ngọc Sơn</a></li>
+      <li><a href="thanhcoloa.html">Thành Cổ Loa</a></li>
+      <li><a href="chuathay.html">Chùa Thầy</a></li>
+      <li><a href="ditich_dbp.html">Khu di tích chiến thắng Điện Biên Phủ</a></li>
+      <li><a href="vanmieu_qtg.html">Văn Miếu - Quốc Tử Giám</a></li>
+    </ul>
+  </div>
+
+</div>
+
+    <div class="footer-bottom">
+      <a href="gioithieu.html">Giới thiệu</a> /
+      <a href="https://www.facebook.com/hoangdang2901281230">Trang Facebook</a> 
+    </div>
+  </footer>
+<button id="topButton" onclick="scrollToTop()">
+  <i class="fas fa-arrow-up"></i>
+</button>
+	
+<div id="chatIcon" onclick="toggleChat()">
+  <i class="fas fa-robot"></i>
+</div>
+<div id="chatBox">
+  <div class="chat-header">
+    <span>CHATBOX</span>
+    <i class="fas fa-times" onclick="toggleChat()"></i>
+  </div>
+  <div class="chat-body" id="chatMessages">
+    <!-- Tin nhắn sẽ được thêm ở đây -->
+  </div>
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Gửi tin nhắn..." />
+    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+</body>
+</html>

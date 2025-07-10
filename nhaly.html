@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link href="Styles/aulac.css" type="text/css" rel="stylesheet"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Nhà Lý</title>
+</head>
+<script>
+	//menu for mobile
+  function toggleMenu(button) {
+    const menu = document.getElementById("mainMenu");
+    const bars = button.querySelector(".fa-bars");
+    const times = button.querySelector(".fa-times");
+
+    menu.classList.toggle("show");
+
+    if (menu.classList.contains("show")) {
+      bars.style.display = "none";
+      times.style.display = "inline";
+    } else {
+      bars.style.display = "inline";
+      times.style.display = "none";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuLinks = document.querySelectorAll(".nav-item a");
+    const menu = document.getElementById("mainMenu");
+    const hamburger = document.querySelector(".hamburger");
+    const bars = hamburger.querySelector(".fa-bars");
+    const times = hamburger.querySelector(".fa-times");
+
+    menuLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 768 && menu.classList.contains("show")) {
+          menu.classList.remove("show");
+          bars.style.display = "inline";
+          times.style.display = "none";
+        }
+      });
+    });
+  });
+	// topbutton
+window.onscroll = function() {
+           const topButton = document.getElementById("topButton");
+           if (document.body.scrollTop > 000 || document.documentElement.scrollTop > 000) {
+               topButton.style.display = "block";
+           } else {
+               topButton.style.display = "none";
+           }
+        };
+        function scrollToTop() {
+           window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+	//chatbox
+let chatOpen = false;
+
+  // Danh sách phản hồi tùy chỉnh
+  const responses = {
+    "xin chào": "Chào bạn! Tôi có thể giúp gì cho bạn?",
+    "bạn là ai": "Tôi là trợ lý tư vấn lịch sử đây!",
+    "lịch sử việt nam": "Việt Nam có một lịch sử phong phú kéo dài hơn 4000 năm!",
+    "hồ chí minh": "Chủ tịch Hồ Chí Minh là vị lãnh tụ vĩ đại của dân tộc Việt Nam.",
+    "trần hưng đạo": "Ông là một danh tướng thời Trần, đã đánh bại quân Nguyên Mông.",
+    "điện biên phủ": "Trận Điện Biên Phủ năm 1954 là chiến thắng vang dội của quân đội ta.",
+    "liên hệ": "Bạn có thể liên hệ với chúng tôi qua mục 'Liên hệ' phía dưới.",
+    "tạm biệt": "Cảm ơn bạn đã trò chuyện! Hẹn gặp lại.",
+    "": "Xin lỗi, tôi giúp được gì cho bạn!"
+  };
+
+  // Tìm phản hồi gần đúng
+  function findResponse(message) {
+    message = message.toLowerCase();
+    for (let key in responses) {
+      if (message.includes(key)) {
+        return responses[key];
+      }
+    }
+    return "Xin lỗi, tôi chưa hiểu. Bạn có thể nói lại rõ hơn?";
+  }
+
+  function toggleChat() {
+    const chatBox = document.getElementById("chatBox");
+    const chatMessages = document.getElementById("chatMessages");
+
+    if (!chatOpen) {
+      chatBox.style.display = "flex";
+      setTimeout(() => {
+        addMessage("Xin chào!", "bot-message");
+      }, 300);
+    } else {
+      chatBox.style.display = "none";
+    }
+    chatOpen = !chatOpen;
+  }
+
+  function sendMessage() {
+    const input = document.getElementById("userInput");
+    const message = input.value.trim();
+    if (message !== "") {
+      addMessage(message, "user-message");
+      input.value = "";
+
+      // Bot phản hồi sau 1 giây
+      setTimeout(() => {
+        const reply = findResponse(message);
+        addMessage(reply, "bot-message");
+      }, 1000);
+    }
+  }
+
+  function addMessage(text, className) {
+    const chatMessages = document.getElementById("chatMessages");
+    const msg = document.createElement("div");
+    msg.className = `chat-message ${className}`;
+    msg.innerText = text;
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+	document.addEventListener("DOMContentLoaded", function () {
+  const input = document.getElementById("userInput");
+  input.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Ngăn form reload nếu có
+      sendMessage();
+    }
+  });
+});
+
+</script>
+<body>
+	<div class="banner">
+    	<img src="images/trongdong.gif" alt = "Banner"/>
+  </div>
+  <header>
+    <nav>
+  <div class="navbar-wrapper">
+    <div class="hamburger" onclick="toggleMenu(this)">
+  <i class="fas fa-bars"></i>
+  <i class="fas fa-times" style="display: none;"></i>
+</div>
+    <div class="navbar" id="mainMenu">
+      <div class="nav-item"><b><a href = "index.html" class="trangchu">TRANG CHỦ</a></b></div>
+
+      <div class="nav-item">
+        <b>DÒNG LỊCH SỬ</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          	<a href="hongbangvanlang.html">Hồng Bàng & Văn Lang</a>
+          	<a href="aulac.html">Âu Lạc & Nam Việt</a>
+          	<a href="bacthuoclan1.html">Bắc thuộc lần I</a>
+			<a href="trungnuvuong.html">Trưng Nữ Vương</a>
+			<a href="bacthuoclan2.html">Bắc thuộc lần II</a>
+			<a href="nhalynhatrieu.html">Nhà Lý & Nhà Triệu</a>
+			<a href="bacthuoclan3.html">Bắc thuộc lần III</a>
+			<a href="tuchu.html">Thời kỳ xây nền tự chủ</a>
+			<a href="nhango.html">Nhà Ngô</a>
+			<a href="nhadinh.html">Nhà Đinh</a>
+			<a href="nhatienle.html">Nhà Tiền Lê</a>
+			<a href="nhaly.html">Nhà Lý</a>
+			<a href="nhatran.html">Nhà Trần</a>
+			<a href="nhaho.html">Nhà Hồ</a>
+			<a href="nhahautran.html">Nhà Hậu Trần</a>
+			<a href="bacthuoclan4.html">Bắc thuộc lần IV</a>
+			<a href="nhahaule.html">Nhà Hậu Lê</a>
+			<a href="nambactrieu.html">Nam Bắc Triều</a>
+			<a href="trinhnguyen.html">Trịnh Nguyễn Phân Tranh</a>
+			<a href="nhatayson.html">Nhà Tây Sơn</a>
+			<a href="nhanguyen.html">Nhà Nguyễn</a>
+			<a href="phapthuoc.html">Pháp thuộc</a>
+			<a href="vietnamdcch.html">Việt Nam Dân Chủ Cộng Hòa</a>
+			<a href="chxhcnvn.html">Cộng hòa xã hội chủ nghĩa Việt Nam</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <b>TƯ LIỆU</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="quansu.html">Quân sự</a>
+          <a href="tacpham.html">Tác phẩm</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <b>NHÂN VẬT</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="anhhungdantoc.html">Anh hùng dân tộc</a>
+          <a href="danhnhanvanhoa.html">Danh nhân văn hóa</a>
+        </div>
+      </div>
+
+      <div class="nav-item"><b><a href="ditich.html">DI TÍCH</a></b></div>
+      <div class="nav-item"><b><a href="ngaynay.html">NGÀY NAY</a></b></div>
+      <div class="nav-item"><b><a href="cauhoi.html">Q&A</a></b></div>
+    </div>
+  </div>
+</nav>
+  </header>
+
+  <section class="main-content">
+<div class="search-bar">
+	<div class="breadcrumb">
+    Bạn đang ở:
+    <a href="index.html">Trang chủ</a> /
+    <a href="#">Dòng Lịch Sử</a> /
+    <a href="nhaly.html">Nhà Lý</a>
+  </div>
+  <form action="https://www.google.com/search" method="GET" target="_blank">
+    <input type="text" name="q" placeholder="Tìm kiếm trên Google...">
+    <button type="submit">Tìm kiếm</button>
+  </form>
+</div>
+	  
+<div class="content-wrapper">
+  <div class="main-column">
+    <div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Hồng Bàng & Văn Lang</a>
+  </h2>
+  <p class="section-content">
+    Nhà Lý (1010-1225), quốc hiệu Đại Cồ Việt, kinh đô Hoa Lư. Năm 1010 dời đô về Thăng Long. Từ 1054 đổi quốc hiệu là Đại Việt
+  </p>
+    <p class="section-content">
+    Nhà Lý bắt đầu khi Lý Công Uẩn lên ngôi vào tháng 10 âm lịch năm 1009, sau khi giành được quyền lực từ tay nhà Tiền Lê.
+  </p>
+    <p class="section-content">
+    Trong thời đại này, lần đầu tiên nhà Lý đã giữ vững được chính quyền một cách lâu dài đến hơn 200 năm, khác với các vương triều cũ trước đó chỉ tồn tại hơn vài chục năm. Vào năm 1054, Lý Thánh Tông đã đổi quốc hiệu từ Đại Cồ Việt thành Đại Việt, mở ra kỷ nguyên Đại Việt rực rỡ trong lịch sử Việt Nam.
+  </p>
+    <p class="section-content">
+    Trong nước, mặc dù các vị Hoàng đế đều sùng bái Phật giáo nhưng ảnh hưởng của Nho giáo cũng rất cao với việc mở các trường đại học đầu tiên là Văn miếu (1070) và Quốc tử giám (1076) và các khoa thi để chọn người hiền tài không có nguồn gốc xuất thân là quý tộc ra giúp nước.
+  </p>
+</div>
+	  
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Lý Thái Tổ - Lý Công Uẩn</a>
+  </h2>
+  <p class="section-content">
+    Lý Thái Tổ (1010 – 1028)
+  </p>
+    <p class="section-content">
+    Lý Công Uẩn người làng Cổ Pháp (Từ Sơn, Bắc Ninh), mẹ họ Phạm, sinh ngày 12 tháng 2 năm Giáp Tuất (974), mẹ chết khi mới sinh, thiền sư Lý Khánh Văn nhận làm con nuôi, Lý Công Uẩn thông minh và có chí khí khác người ngay từ nhỏ.
+  </p>
+    <p class="section-content">
+    Nhờ sự nuôi dạy của nhà sư Lý Khánh Văn và Lý Vạn Hạnh, Lý Công Uẩn trở thành người xuất chúng, văn võ kiêm toàn, làm đến chức Điện tiền chỉ huy sứ, khi Lê Ngọa Triều mất, triều thần tôn Lý Công Uẩn lên ngôi Hoàng đế, niên hiệu Thuận Thiên, vẫn lấy Quốc hiệu là Đại Cồ Việt, đóng đô tại Hoa Lư.
+  </p>
+    <p class="section-content">
+    Tháng 7 năm 1010, vua Lý Thái Tổ cho dời đô về thành Đại La, một buổi sáng đẹp trời, thuyền vừa cập bến, Nhà Vua thấy Rồng vàng bay lên, do đó đặt tên là Kinh đô Thăng Long (tức là Hà Nội ngày nay).
+  </p>
+</div>
+      
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Lý Thái Tông - Lý Phật Mã</a>
+  </h2>
+  <p class="section-content">
+    Lý Thái Tông (1028 – 1054)
+  </p>
+    <p class="section-content">
+    Vua Lý Thái Tổ sinh các hoàng tử: Thái tử Phật Mã, Dực Thánh Vương, Khai Quốc Vương Bồ, Đông Chính Vương Lực, Võ Đức Vương Hoàng.
+  </p>
+    <p class="section-content">
+    Khi Vua Thái Tổ vừa mất, chưa kịp làm lễ tang, các hoàng tử Võ Đức Vương, Dực Thánh Vương, Đông Chính Vương đem quân vây Hoàng thành để tranh ngôi vua với Thái tử, nhờ có Lê Phụng Hiểu trung dũng xông ra chém chết Võ Đức Vương, hai hoàng tử kia bỏ chạy.
+  </p>
+    <p class="section-content">
+    Triều thần cùng Lê Phụng Hiểu phò Thái tử Phật Mã lên ngôi Hoàng đế, niên hiệu Lý Thái Tông.
+  </p>
+</div>
+      
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Lý Thánh Tông - Lý Nhật Tôn</a>
+  </h2>
+  <p class="section-content">
+    Lý Thánh Tông (1054 – 1072)
+  </p>
+    <p class="section-content">
+    Lý Thánh Tông tên húy là Nhật Tôn, sinh ngày 25 tháng 2 năm Quý Hợi (1023), là con bà Kim Thiên Thái Hậu họ Mai.
+  </p>
+    <p class="section-content">
+    Nhà sử học Ngô Sỹ Liên ghi trong “Đại Việt sử ký toàn thư”: “... Vua khéo kế thừa, thực lòng thương dân, trọng việc làm ruộng, thương kẻ bị hình, vỗ về thu phục người xa, đặt khoa bác sĩ, hậu lễ dưỡng liêm, sửa sang việc văn, phòng bị việc võ, trong nước yên tĩnh, đáng gọi là bậc Vua tốt. Song nhọc sức xây tháp Báo Thiên, phí của dân làm cung Dâm Đàm, đó là chỗ kém”.
+  </p>
+</div>
+      
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Lý Nhân Tông - Lý Càn Đức</a>
+  </h2>
+  <p class="section-content">
+    Lý Nhân Tông (1072 – 1128)
+  </p>
+    <p class="section-content">
+    Thái tử Càn Đức là con trưởng của Lý Thánh Tông, mẹ là bà Nguyên phi Ỷ Lan, sau là Thái hậu Linh Nhân, Thái tử sinh ngày 25 tháng Giêng năm Bính Ngọ (1066), khi Lý Thánh Tông mất, Thái tử lên ngôi Hoàng đế (1072) lúc mới 6 tuổi, Hoàng Thái hậu Ỷ Lan phải buông rèm nhiếp chính.
+  </p>
+    <p class="section-content">
+    Năm 1075, thời Tống Thần Tông, Vương An Thạch làm Tể tướng âm mưu xâm lược nước ta, Thái úy Lý Thường Kiệt biết rõ âm mưu xâm lược của nhà Tống nên đã đánh phá các căn cứ tập kết lương thực, vũ khí của chúng ở Châu Khâm, Châu Liêm, Châu Ung (Quảng Đông, Quảng Tây) rồi chủ động rút quân về nước lập phòng tuyến ở bờ nam sông Cầu để chặn giặc.
+  </p>
+</div>
+      
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Lý Thần Tông - Lý Dương Hoán</a>
+  </h2>
+  <p class="section-content">
+    Lý Thần Tông (1128 - 1138)
+  </p>
+    <p class="section-content">
+    Vua Lý Nhân Tông không có con trai, lập con của em trai là Sùng Hiền Hầu Dương Hoán lên làm Thái tử, kế vị Hoàng đế là vua Lý Thần Tông.
+  </p>
+    <p class="section-content">
+    Vua Lý Thần Tông khuyến khích phát triển nông nghiệp, thực hiện chính sách "ngụ binh ư nông", cho binh lính đổi phiên, cứ lần lượt 6 tháng một được về làm ruộng, do vậy nhân dân no đủ, an cư lạc nghiệp.
+  </p>
+</div>
+      
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Lý Anh Tông - Lý Thiên Tộ</a>
+  </h2>
+  <p class="section-content">
+    Lý Anh Tông (1138 - 1175)
+  </p>
+    <p class="section-content">
+    Lý Thiên Tộ là con đích trưởng của Lý Thần Tông, con bà Lê Hoàng hậu, sinh tháng 4 năm Bính Thìn (1136), lên ngôi Hoàng đế năm 1138, lúc đó mới 3 tuổi. Lê Hoàng hậu cầm quyền nhiếp chính lại tư thông với Đỗ Anh Vũ làm cho triều đình đổ nát, sau nhờ có các trung thần như Tô Hiến Thành, Hoàng Nghĩa Hiền, Lý Công Tín nên giữ vững được cơ đồ nhà Lý.
+  </p>
+</div>
+	  
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Lý Cao Tông - Lý Long Trát</a>
+  </h2>
+  <p class="section-content">
+    Lý Cao Tông (1176 - 1210)
+  </p>
+    <p class="section-content">
+    Lý Anh Tông mất, Thái tử Long Cán lúc đó chưa đầy 3 tuổi, bà Chiêu Linh Thái hậu muốn lập con cả của mình là Long Xưởng lên ngôi vua. Bà đem vàng bạc đút lót cho vợ Tô Hiến Thành, nhưng Tô Hiến Thành nhất định không nghe cứ theo di chiếu lập Long Cán lên làm vua, hiệu là Lý Cao Tông. Lớn lên Cao Tông chơi bời vô độ, chính sự hình pháp không rõ ràng, giặc cướp nổi lên như ong, đói kém liên miên, cơ nghiệp nhà Lý từ đó suy đồi.
+  </p>
+</div>
+      
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Lý Huệ Tông - Lý Sảm</a>
+  </h2>
+  <p class="section-content">
+    Lý Huệ Tông (1211 - 1224)
+  </p>
+    <p class="section-content">
+    Thái tử Sảm lên ngôi Hoàng đế, hiệu là Huệ Tông, lập Trần Thị Dung làm nguyên phi, phong cho Trần Tự Khánh làm Chương Tín hầu, Tô Trung Tự làm Thái uý, Thuận Lưu Bá, Trần Thừa làm Nội thị phán thủ.
+  </p>
+    <p class="section-content">
+    Thái tử Sâm sinh tháng 7 năm Giáp Dần (1194) con cả của Cao Tông và bà Hoàng hậu họ Đàm.
+  </p>
+    <p class="section-content">
+    Vua Huệ Tông thường rượu chè say khướt suốt ngày, bỏ bê triều chính. Huệ Tông không có con trai. Hoàng hậu Trần Thị Dung chỉ sinh được hai con gái. Con gái lớn là Thuận Thiên công chúa đã gả cho Phụng kiều vương Trần Liễu, công chúa thứ 2 là Phật Kim (công chúa Chiêu Thánh) mới 7 tuổi được làm Thái tử.
+  </p>
+</div>
+      
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Lý Chiều Hoàng - Lý Phật Kim</a>
+  </h2>
+  <p class="section-content">
+    Lý Chiêu Hoàng (1224 - 1225)
+  </p>
+    <p class="section-content">
+    Dưới sự đạo diễn của Trần Thủ Độ, Lý Huệ Tông bị ép đi tu, nhường ngôi vua cho con gái là công chúa Chiêu Thánh (lúc đó mới 7 tuổi) niên hiệu là Lý Chiêu Hoàng. Binh quyền về tay Trần Thủ Độ.
+  </p>
+    <p class="section-content">
+    Cũng dưới sự đạo diễn của Trần Thủ Độ, Trần Cảnh (8 tuổi) là con ông Trần Thừa được đưa vào hầu cận Lý Chiêu Hoàng.
+  </p>
+    <p class="section-content">
+    Trần Cảnh được Chiêu Hoàng yêu mến, thường hay té nước, ném khăn trêu đùa. Trần Thủ Độ tung tin là Lý Chiêu Hoàng đã lấy chồng là Trần Cảnh. 
+  </p>
+    <p class="section-content">
+    Ngày 21 tháng 10 năm Ất Dậu (1225), Lý Chiêu Hoàng mở hội lớn ở điện Thiên An, trước bá quan văn võ, Chiêu Hoàng cởi hoàng bào mời Trần Cảnh lên ngôi Hoàng đế đổi niên hiệu là Kiến Trung năm thứ nhất, dựng lên triều đại nhà Trần từ đấy.
+  </p>
+</div>
+  </div>
+	
+  <div class="sidebar-column">
+  <h3 class="sidebar-title">CÁC THỜI KỲ LỊCH SỬ</h3>
+  <ul class="sidebar-menu">
+    <li><a href="hongbangvanlang.html">Hồng Bàng & Văn Lang</a></li>
+    <li><a href="aulac.html">Âu Lạc & Nam Việt</a></li>
+    <li><a href="bacthuoclan1.html">Bắc thuộc lần I</a></li>
+    <li><a href="trungnuvuong.html">Trưng Nữ Vương</a></li>
+    <li><a href="bacthuoclan2.html">Bắc thuộc lần II</a></li>
+    <li><a href="nhalynhatrieu.html">Nhà Lý & Nhà Triệu</a></li>
+    <li><a href="bacthuoclan3.html">Bắc thuộc lần III</a></li>
+    <li><a href="tuchu.html">Thời kỳ xây nền tự chủ</a></li>
+    <li><a href="nhango.html">Nhà Ngô</a></li>
+    <li><a href="nhadinh.html">Nhà Đinh</a></li>
+    <li><a href="nhatienle.html">Nhà Tiền Lê</a></li>
+    <li><a href="nhaly.html">Nhà Lý</a></li>
+    <li><a href="nhatran.html">Nhà Trần</a></li>
+    <li><a href="nhaho.html">Nhà Hồ</a></li>
+    <li><a href="nhahautran.html">Nhà Hậu Trần</a></li>
+    <li><a href="bacthuoclan4.html">Bắc thuộc lần IV</a></li>
+    <li><a href="nhahaule.html">Nhà Hậu Lê</a></li>
+    <li><a href="nambactrieu.html">Nam Bắc Triều</a></li>
+    <li><a href="trinhnguyen.html">Trịnh Nguyễn Phân Tranh</a></li>
+    <li><a href="nhatayson.html">Nhà Tây Sơn</a></li>
+    <li><a href="nhanguyen.html">Nhà Nguyễn</a></li>
+    <li><a href="phapthuoc.html">Pháp thuộc</a></li>
+    <li><a href="vietnamdcch.html">Việt Nam Dân Chủ Cộng Hòa</a></li>
+    <li><a href="chxhcnvn.html">Cộng hòa XHCN Việt Nam</a></li>
+  </ul>
+	  <h3 class="sidebar-title">Tư liệu</h3>
+  <ul class="sidebar-menu">
+    <li><a href="dbptrenkhong_1972.html">Trận Điện Biên Phủ trên không năm 1972</a></li>
+    <li><a href="biengioi_taynam.html">Chiến tranh biên giới Tây Nam năm 1975 - 1978</a></li>
+    <li><a href="chiendichmuaxuan.html">Chiến dịch mùa Xuân 1975</a></li>
+    <li><a href="chiendichtaynguyen.html">Chiến dịch Tây Nguyên 1975</a></li>
+    <li><a href="tranmauthan.html">Trận Mậu Thân tại Huế năm 1968</a></li>
+    <li><a href="namquocsonha.html">Nam quốc sơn hà - Bản tuyên ngôn độc lập đầu tiên</a></li>
+    <li><a href="tuyenngondoclap.html">Tuyên ngôn độc lập Việt Nam Dân chủ Cộng hòa</a></li>
+    <li><a href="chuviet.html">Lịch sử Chữ viết tiếng Việt</a></li>
+    <li><a href="hichtuongsi.html">Hịch tướng sĩ - Dụ chư tỳ tướng hịch văn</a></li>
+  </ul>
+</div>
+</div>
+  </section>
+<footer>
+  <div class="footer-container">
+
+  <div class="footer-column">
+    <h3>Anh hùng dân tộc tiêu biểu</h3>
+    <ul>
+      <li><a href="lethaito.html">Lê Thái Tổ</a></li>
+      <li><a href="hochiminh.html">Hồ Chí Minh</a></li>
+      <li><a href="hungvuong.html">Hùng Vương</a></li>
+      <li><a href="lythuongkiet.html">Lý Thường Kiệt</a></li>
+      <li><a href="nguyenhue.html">Nguyễn Huệ</a></li>
+      <li><a href="nguyentrai.html">Nguyễn Trãi</a></li>
+      <li><a href="lynamde.html">Lý Nam Đế</a></li>
+      <li><a href="tranhungdao.html">Trần Hưng Đạo</a></li>
+      <li><a href="dinhtienhoang.html">Đinh Tiên Hoàng</a></li>
+      <li><a href="ngoquyen.html">Ngô Quyền</a></li>
+    </ul>
+  </div>
+
+  <div class="footer-column">
+    <h3>Tư liệu lịch sử</h3>
+    <ul>
+      <li><a href="biengioi_viettrung.html">Vấn đề biên giới Việt-Trung thời Mạc</a></li>
+      <li><a href="ngoaigiaovietnam_tayson.html">Ngoại giao Việt Nam thời Tây Sơn</a></li>
+      <li><a href="bieudocacnhanvatls.html">Biểu đồ các nhân vật lịch sử theo dòng thời gian</a></li>
+      <li><a href="dstrangnguyen.html">Danh sách Trạng nguyên Việt Nam</a></li>
+      <li><a href="ngoaigiaovn_nguyen.html">Ngoại giao Việt Nam thời Nguyễn</a></li>
+      <li><a href="dbptrenkhong_1972.html">Trận Điện Biên Phủ trên không năm 1972</a></li>
+      <li><a href="tranngochoi_dongda.html">Trận Ngọc Hồi - Đống Đa năm 1789</a></li>
+      <li><a href="trancamsa.html">Trận Cẩm Sa năm 1775</a></li>
+      <li><a href="tranrachgam_xoaimut.html">Trận Rạch Gầm – Xoài Mút năm 1785</a></li>
+      <li><a href="lanhthovietnam.html">Lãnh thổ Việt Nam qua từng thời kỳ</a></li>
+    </ul>
+  </div>
+
+  <div class="footer-column">
+    <h3>Di tích lịch sử</h3>
+    <ul>
+      <li><a href="ditichpacbo.html">Khu di tích Pác Bó</a></li>
+      <li><a href="denhung.html">Đền Hùng</a></li>
+      <li><a href="ditich_hcm_phuchutich.html">Khu di tích Chủ tịch Hồ Chí Minh tại Phủ Chủ tịch</a></li>
+      <li><a href="chienkhutantrao.html">Chiến khu Tân Trào</a></li>
+      <li><a href="dentran.html">Đền Trần (Thái Bình)</a></li>
+      <li><a href="denngocson.html">Đền Ngọc Sơn</a></li>
+      <li><a href="thanhcoloa.html">Thành Cổ Loa</a></li>
+      <li><a href="chuathay.html">Chùa Thầy</a></li>
+      <li><a href="ditich_dbp.html">Khu di tích chiến thắng Điện Biên Phủ</a></li>
+      <li><a href="vanmieu_qtg.html">Văn Miếu - Quốc Tử Giám</a></li>
+    </ul>
+  </div>
+
+</div>
+
+    <div class="footer-bottom">
+      <a href="gioithieu.html">Giới thiệu</a> /
+      <a href="https://www.facebook.com/hoangdang2901281230">Trang Facebook</a> 
+    </div>
+  </footer>
+<button id="topButton" onclick="scrollToTop()">
+  <i class="fas fa-arrow-up"></i>
+</button>
+	
+<div id="chatIcon" onclick="toggleChat()">
+  <i class="fas fa-robot"></i>
+</div>
+<div id="chatBox">
+  <div class="chat-header">
+    <span>CHATBOX</span>
+    <i class="fas fa-times" onclick="toggleChat()"></i>
+  </div>
+  <div class="chat-body" id="chatMessages">
+    <!-- Tin nhắn sẽ được thêm ở đây -->
+  </div>
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Gửi tin nhắn..." />
+    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+</body>
+</html>

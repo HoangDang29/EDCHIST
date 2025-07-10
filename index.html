@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link href="Styles/style.css" type="text/css" rel="stylesheet"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>EDCHist - Gìn giữ lịch sử Việt</title>
+</head>
+<script>
+	//menu for mobile
+  function toggleMenu(button) {
+    const menu = document.getElementById("mainMenu");
+    const bars = button.querySelector(".fa-bars");
+    const times = button.querySelector(".fa-times");
+
+    menu.classList.toggle("show");
+
+    if (menu.classList.contains("show")) {
+      bars.style.display = "none";
+      times.style.display = "inline";
+    } else {
+      bars.style.display = "inline";
+      times.style.display = "none";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuLinks = document.querySelectorAll(".nav-item a");
+    const menu = document.getElementById("mainMenu");
+    const hamburger = document.querySelector(".hamburger");
+    const bars = hamburger.querySelector(".fa-bars");
+    const times = hamburger.querySelector(".fa-times");
+
+    menuLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 768 && menu.classList.contains("show")) {
+          menu.classList.remove("show");
+          bars.style.display = "inline";
+          times.style.display = "none";
+        }
+      });
+    });
+  });
+	// topbutton
+window.onscroll = function() {
+           const topButton = document.getElementById("topButton");
+           if (document.body.scrollTop > 000 || document.documentElement.scrollTop > 000) {
+               topButton.style.display = "block";
+           } else {
+               topButton.style.display = "none";
+           }
+        };
+        function scrollToTop() {
+           window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+	//chatbox
+let chatOpen = false;
+
+  // Danh sách phản hồi tùy chỉnh
+  const responses = {
+    "xin chào": "Chào bạn! Tôi có thể giúp gì cho bạn?",
+    "bạn là ai": "Tôi là trợ lý tư vấn lịch sử đây!",
+    "lịch sử việt nam": "Việt Nam có một lịch sử phong phú kéo dài hơn 4000 năm!",
+    "hồ chí minh": "Chủ tịch Hồ Chí Minh là vị lãnh tụ vĩ đại của dân tộc Việt Nam.",
+    "trần hưng đạo": "Ông là một danh tướng thời Trần, đã đánh bại quân Nguyên Mông.",
+    "điện biên phủ": "Trận Điện Biên Phủ năm 1954 là chiến thắng vang dội của quân đội ta.",
+    "liên hệ": "Bạn có thể liên hệ với chúng tôi qua mục 'Liên hệ' phía dưới.",
+    "tạm biệt": "Cảm ơn bạn đã trò chuyện! Hẹn gặp lại.",
+    "": "Xin lỗi, tôi giúp được gì cho bạn!"
+  };
+
+  // Tìm phản hồi gần đúng
+  function findResponse(message) {
+    message = message.toLowerCase();
+    for (let key in responses) {
+      if (message.includes(key)) {
+        return responses[key];
+      }
+    }
+    return "Xin lỗi, tôi chưa hiểu. Bạn có thể nói lại rõ hơn?";
+  }
+
+  function toggleChat() {
+    const chatBox = document.getElementById("chatBox");
+    const chatMessages = document.getElementById("chatMessages");
+
+    if (!chatOpen) {
+      chatBox.style.display = "flex";
+      setTimeout(() => {
+        addMessage("Xin chào!", "bot-message");
+      }, 300);
+    } else {
+      chatBox.style.display = "none";
+    }
+    chatOpen = !chatOpen;
+  }
+
+  function sendMessage() {
+    const input = document.getElementById("userInput");
+    const message = input.value.trim();
+    if (message !== "") {
+      addMessage(message, "user-message");
+      input.value = "";
+
+      // Bot phản hồi sau 1 giây
+      setTimeout(() => {
+        const reply = findResponse(message);
+        addMessage(reply, "bot-message");
+      }, 1000);
+    }
+  }
+
+  function addMessage(text, className) {
+    const chatMessages = document.getElementById("chatMessages");
+    const msg = document.createElement("div");
+    msg.className = `chat-message ${className}`;
+    msg.innerText = text;
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+	document.addEventListener("DOMContentLoaded", function () {
+  const input = document.getElementById("userInput");
+  input.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Ngăn form reload nếu có
+      sendMessage();
+    }
+  });
+});
+	
+	//slide
+function goToSlide(index) {
+  const sliderContent = document.getElementById("sliderContent");
+  const tabs = document.querySelectorAll(".slide-tab");
+  const tabContainer = document.getElementById("sliderTabs");
+  const slides = document.querySelectorAll(".slide");
+
+  if (index < 0 || index >= slides.length) return;
+
+  // Lấy chiều rộng 1 slide chính xác để tính vị trí
+  const slideWidth = slides[0].offsetWidth;
+
+  // Di chuyển nội dung slide
+  sliderContent.style.transform = `translateX(-${index * slideWidth}px)`;
+  sliderContent.style.transition = "transform 0.5s ease-in-out";
+
+  // Kích hoạt tab tương ứng
+  tabs.forEach((tab, i) => {
+    tab.classList.toggle("active", i === index);
+  });
+
+  // Cuộn tab được chọn vào giữa khung nhìn
+  const selectedTab = tabs[index];
+  const tabOffsetLeft = selectedTab.offsetLeft;
+  const tabWidth = selectedTab.offsetWidth;
+  const containerWidth = tabContainer.offsetWidth;
+  const scrollPosition = tabOffsetLeft - (containerWidth / 2) + (tabWidth / 2);
+
+  tabContainer.scrollTo({
+    left: scrollPosition,
+    behavior: "smooth"
+  });
+}
+
+</script>
+<body>
+	<div class="banner">
+    	<img src="images/trongdong.gif" alt = "Banner"/>
+  </div>
+  <header>
+    <nav>
+  <div class="navbar-wrapper">
+    <div class="hamburger" onclick="toggleMenu(this)">
+  <i class="fas fa-bars"></i>
+  <i class="fas fa-times" style="display: none;"></i>
+</div>
+    <div class="navbar" id="mainMenu">
+      <div class="nav-item"><b><a href = "index.html" class="trangchu">TRANG CHỦ</a></b></div>
+
+      <div class="nav-item">
+        <b>DÒNG LỊCH SỬ</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          	<a href="hongbangvanlang.html">Hồng Bàng & Văn Lang</a>
+          	<a href="aulac.html">Âu Lạc & Nam Việt</a>
+          	<a href="bacthuoclan1.html">Bắc thuộc lần I</a>
+			<a href="trungnuvuong.html">Trưng Nữ Vương</a>
+			<a href="bacthuoclan2.html">Bắc thuộc lần II</a>
+			<a href="nhalynhatrieu.html">Nhà Lý & Nhà Triệu</a>
+			<a href="bacthuoclan3.html">Bắc thuộc lần III</a>
+			<a href="tuchu.html">Thời kỳ xây nền tự chủ</a>
+			<a href="nhango.html">Nhà Ngô</a>
+			<a href="nhadinh.html">Nhà Đinh</a>
+			<a href="nhatienle.html">Nhà Tiền Lê</a>
+			<a href="nhaly.html">Nhà Lý</a>
+			<a href="nhatran.html">Nhà Trần</a>
+			<a href="nhaho.html">Nhà Hồ</a>
+			<a href="nhahautran.html">Nhà Hậu Trần</a>
+			<a href="bacthuoclan4.html">Bắc thuộc lần IV</a>
+			<a href="nhahaule.html">Nhà Hậu Lê</a>
+			<a href="nambactrieu.html">Nam Bắc Triều</a>
+			<a href="trinhnguyen.html">Trịnh Nguyễn Phân Tranh</a>
+			<a href="nhatayson.html">Nhà Tây Sơn</a>
+			<a href="nhanguyen.html">Nhà Nguyễn</a>
+			<a href="phapthuoc.html">Pháp thuộc</a>
+			<a href="vietnamdcch.html">Việt Nam Dân Chủ Cộng Hòa</a>
+			<a href="chxhcnvn.html">Cộng hòa xã hội chủ nghĩa Việt Nam</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <b>TƯ LIỆU</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="quansu.html">Quân sự</a>
+          <a href="tacpham.html">Tác phẩm</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <b>NHÂN VẬT</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="anhhungdantoc.html">Anh hùng dân tộc</a>
+          <a href="danhnhanvanhoa.html">Danh nhân văn hóa</a>
+        </div>
+      </div>
+
+      <div class="nav-item"><b><a href="ditich.html">DI TÍCH</a></b></div>
+      <div class="nav-item"><b><a href="ngaynay.html">NGÀY NAY</a></b></div>
+      <div class="nav-item"><b><a href="cauhoi.html">Q&A</a></b></div>
+    </div>
+  </div>
+</nav>
+  </header>
+
+  <section class="main-content">
+	  <!-- Slide -->
+	<div class="slider-section-wrapper">
+		 <div class="background-overlay"></div>
+	  <div class="slider-container">
+		  <div class="slider-background"></div>
+  <div class="slider-tabs" id="sliderTabs">
+    <div class="slide-tab active" onclick="goToSlide(0)">Hồng Bàng & Văn Lang</div>
+    <div class="slide-tab" onclick="goToSlide(1)">Âu Lạc & Nam Việt</div>
+    <div class="slide-tab" onclick="goToSlide(2)">Bắc thuộc lần I</div>
+    <div class="slide-tab" onclick="goToSlide(3)">Trưng Nữ Vương</div>
+    <div class="slide-tab" onclick="goToSlide(4)">Bắc thuộc lần II</div>
+    <div class="slide-tab" onclick="goToSlide(5)">Nhà Lý & Nhà Triệu</div>
+    <div class="slide-tab" onclick="goToSlide(6)">Bắc thuộc lần III</div>
+    <div class="slide-tab" onclick="goToSlide(7)">Thời kỳ xây nền tự chủ</div>
+    <div class="slide-tab" onclick="goToSlide(8)">Nhà Ngô</div>
+    <div class="slide-tab" onclick="goToSlide(9)">Nhà Đinh</div>
+    <div class="slide-tab" onclick="goToSlide(10)">Nhà Tiền Lê</div>
+    <div class="slide-tab" onclick="goToSlide(11)">Nhà Lý</div>
+    <div class="slide-tab" onclick="goToSlide(12)">Nhà Trần</div>
+    <div class="slide-tab" onclick="goToSlide(13)">Nhà Hồ</div>
+    <div class="slide-tab" onclick="goToSlide(14)">Nhà Hậu Trần</div>
+    <div class="slide-tab" onclick="goToSlide(15)">Bắc thuộc lần IV</div>
+    <div class="slide-tab" onclick="goToSlide(16)">Nhà Hậu Lê</div>
+    <div class="slide-tab" onclick="goToSlide(17)">Nam Bắc Triều</div>
+    <div class="slide-tab" onclick="goToSlide(18)">Trịnh Nguyễn Phân Tranh</div>
+    <div class="slide-tab" onclick="goToSlide(19)">Nhà Tây Sơn</div>
+    <div class="slide-tab" onclick="goToSlide(20)">Nhà Nguyễn</div>
+    <div class="slide-tab" onclick="goToSlide(21)">Pháp thuộc</div>
+    <div class="slide-tab" onclick="goToSlide(22)">Việt Nam Dân Chủ Cộng Hòa</div>
+    <div class="slide-tab" onclick="goToSlide(23)">Cộng hòa XHCN Việt Nam</div>
+  </div>
+
+  <div class="slider-content-wrapper">
+	    
+    <div class="slider-content" id="sliderContent">
+      <div class="slide">
+        <h2><a href="hongbangvanlang.html">Hồng Bàng & Văn Lang</a></h2>
+        <p>Khởi nguyên dân tộc Việt với các vua Hùng dựng nước Văn Lang, đặt nền móng đầu tiên cho văn hóa và quốc gia.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="aulac.html">Âu lạc & Nam Việt</a></h2>
+        <p>An Dương Vương lập nước Âu Lạc, chống giặc giữ nước, mở đầu truyền thống bất khuất của dân tộc.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="bacthuoclan1.html">Bắc thuộc lần I</a></h2>
+        <p>Bắt đầu từ năm 111 TCN khi nhà Hán xâm lược Nam Việt, đất nước rơi vào ách đô hộ phương Bắc, nhưng vẫn âm ỉ tinh thần độc lập.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="trungnuvuong.html">Trưng Nữ Vương</a></h2>
+        <p>Hai Bà Trưng khởi nghĩa năm 40, giành lại độc lập trong 3 năm. Đây là biểu tượng oai hùng của nữ quyền và lòng yêu nước.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="bacthuoclan2.html">Bắc thuộc lần II</a></h2>
+        <p>Sau khi cuộc khởi nghĩa thất bại, nước ta lại rơi vào tay đô hộ của nhà Đông Hán và các triều đại Trung Hoa tiếp theo.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="nhalynhatrieu.html">Nhà Lý & nhà Triệu</a></h2>
+        <p>Dù không phải triều đại độc lập thực sự, nhưng các lực lượng địa phương như Lý Bí (Lý Nam Đế) đã nhiều lần khởi nghĩa và lập nên nước Vạn Xuân.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="bacthuoclan3.html">Bắc thuộc lần III</a></h2>
+        <p>Giai đoạn kéo dài gần 300 năm, nhiều cuộc khởi nghĩa nổ ra, tiêu biểu là của Mai Thúc Loan, Phùng Hưng… khẳng định ý chí không khuất phục.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="tuchu.html">Thời kỳ xây nền tự chủ</a></h2>
+        <p>Khởi nghĩa của Ngô Quyền chiến thắng quân Nam Hán trên sông Bạch Đằng (938), mở ra thời kỳ độc lập lâu dài cho dân tộc.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="nhango.html">Nhà Ngô</a></h2>
+        <p>Ngô Quyền xưng vương, đóng đô ở Cổ Loa, nhưng sau khi mất, đất nước rơi vào loạn Thập nhị sứ quân.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="nhadinh.html">Nhà Đinh</a></h2>
+        <p>Đinh Bộ Lĩnh dẹp loạn, lập nên nhà Đinh, đặt quốc hiệu Đại Cồ Việt, xây dựng nền tảng đầu tiên cho một quốc gia thống nhất.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="nhatienle.html">Nhà Tiền Lê</a></h2>
+        <p>Lê Hoàn tiếp nối triều Đinh, đánh bại quân Tống xâm lược, mở rộng và củng cố quốc gia Đại Cồ Việt.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="nhaly.html">Nhà Lý</a></h2>
+        <p>Nhà Lý trị vì gần 200 năm, đưa đất nước vào thời kỳ ổn định, phát triển văn hóa, luật pháp, xây dựng kinh đô Thăng Long.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="nhatran.html">Nhà Trần</a></h2>
+        <p>Giai đoạn rực rỡ với 3 lần đánh thắng quân Nguyên Mông, phát triển kinh tế, quân sự và văn hóa đỉnh cao.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="nhaho.html">Nhà Hồ</a></h2>
+        <p>Cải cách táo bạo về hành chính và kinh tế, nhưng do chưa đủ vững mạnh nên nhanh chóng bị nhà Minh xâm lược.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="nhahautran.html">Nhà Hậu Trần</a></h2>
+        <p>Kháng chiến chống Minh dưới cờ Hậu Trần thất bại, nhưng đặt nền cho tinh thần đấu tranh kiên cường của dân tộc.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="bacthuoclan4.html">Bắc thuộc lần IV</a></h2>
+        <p>Lần đô hộ cuối cùng của phương Bắc, kéo dài gần 20 năm, kết thúc bởi chiến thắng oanh liệt của nghĩa quân Lam Sơn.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="nhahaule.html">Nhà Hậu Lê</a></h2>
+        <p>Lê Lợi khởi nghĩa thắng lợi, lập nên triều Hậu Lê, đưa đất nước phát triển cực thịnh thời vua Lê Thánh Tông.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="nambactrieu.html">Nam Bắc Triều</a></h2>
+        <p>Loạn lạc giữa triều Mạc và triều Lê trung hưng, chia đôi đất nước, kéo dài gần một thế kỷ chiến tranh.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="trinhnguyen.html">Trịnh Nguyễn phân tranh</a></h2>
+        <p>Hai tập đoàn phong kiến Trịnh và Nguyễn cát cứ Nam Bắc, gây ra thế kỷ chiến tranh phân tranh, đất nước chia cắt.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="nhatayson.html">Nhà Tây Sơn</a></h2>
+        <p>Phong trào khởi nghĩa của ba anh em Tây Sơn đánh đổ Trịnh - Nguyễn, thống nhất đất nước, đánh tan quân Thanh.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="nhanguyen.html">Nhà Nguyễn</a></h2>
+        <p>Triều đại phong kiến cuối cùng, với nhiều cải cách và mở rộng bờ cõi, nhưng cuối cùng bị Pháp đô hộ.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="phapthuoc.html">Pháp thuộc</a></h2>
+        <p>Thực dân Pháp đô hộ gần 100 năm, khai thác thuộc địa tàn bạo nhưng cũng dẫn đến sự trỗi dậy của các phong trào yêu nước.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="vietnamdcch.html">Việt Nam Dân Chủ Cộng Hòa</a></h2>
+        <p>Sau Cách mạng Tháng Tám 1945, Chủ tịch Hồ Chí Minh tuyên bố độc lập, khai sinh nước Việt Nam mới – tự do và dân chủ.</p>
+      </div>
+		<div class="slide">
+        <h2><a href="chxhcnvn.html">Cộng hòa XHCN Việt Nam</a></h2>
+        <p>Thống nhất đất nước sau 1975, xây dựng và phát triển đất nước theo con đường xã hội chủ nghĩa đến ngày nay.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+<div class="search-bar">
+  <form action="https://www.google.com/search" method="GET" target="_blank">
+    <input type="text" name="q" placeholder="Tìm kiếm trên Google...">
+    <button type="submit">Tìm kiếm</button>
+  </form>
+</div>
+	  
+<div class="content-wrapper">
+  <div class="main-column">
+    <div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Danh sách Trạng nguyên Việt Nam</a>
+  </h2>
+  <p class="section-content">
+    Trạng nguyên (chữ Hán: 狀元) là danh hiệu thuộc học vị Tiến sĩ của người đỗ cao nhất trong các khoa đình thời phong kiến ở Việt Nam của các triều nhà Lý, Trần, Lê, và Mạc, kể từ khi có danh hiệu Tam khôi dành cho 3 vị trí đầu tiên. Người đỗ Trạng nguyên nói riêng và đỗ tiến sĩ nói chung phải vượt qua 3 kỳ thi: thi hương, thi hội và thi đình.
+  </p>
+<p class="section-content">
+    Khoa thi đầu tiên được mở ra dưới thời Lý năm 1075, lúc đó vua nhà Lý chưa đặt ra định chế tam khôi nên người đỗ đầu khoa thi này là Lê Văn Thịnh chưa được gọi là Trạng nguyên. Danh sách cụ thể những người đỗ đầu các kỳ thi này xem bài Thủ khoa Đại Việt. Phải đến khoa thi năm Thiên Ứng Chính Bình thứ 16 đời vua Trần Thái Tông (1247) mới đặt ra định chế tam khôi (3 vị trí đỗ đầu có tên gọi thứ tự là: Trạng nguyên, Bảng nhãn, Thám hoa) thì mới có danh hiệu Trạng nguyên. Đến thời nhà Nguyễn thì không lấy danh hiệu Trạng nguyên nữa (danh hiệu cao nhất dưới thời nhà Nguyễn là Đình nguyên). Do đó Trạng nguyên cuối cùng là Trịnh Tuệ đỗ khoa Bính Thìn (1736) thời Lê-Trịnh.
+  </p>
+  <div class="section-image">
+    <img src="images/trangnguyen.jpg" alt="Mô tả ảnh">
+  </div>
+</div>
+	  <div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Lãnh thổ Việt Nam qua từng thời kỳ</a>
+  </h2>
+  <p class="section-content">
+    Lãnh thổ Việt Nam qua từng thời kỳ là sự biến đổi không gian sinh tồn của người Việt, thể hiện bởi các triều đại chính thống được công nhận. Nó mang tính chất phức tạp, lúc bị mất lãnh thổ về các nhà nước khác, lúc xâm chiếm chinh phục được lãnh thổ mới.
+  </p>
+<p class="section-content">
+    Tựu chung lại vùng lãnh thổ cốt lõi phát sinh ra người Việt hiện đại là vùng châu thổ sông Hồng, sau các thế kỷ chinh phục, đồng hóa, khai khẩn mà lãnh thổ trải dài đến đồng bằng sông Cửu Long ngày nay.
+  </p>
+  <div class="section-image">
+    <img src="images/lanhtho.jpg" alt="Mô tả ảnh">
+  </div>
+</div>
+	  <div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Lịch sử Chữ viết tiếng Việt</a>
+  </h2>
+  <p class="section-content">
+    Tiếng Việt là ngôn ngữ của người Việt và là ngôn ngữ chính thức của Việt Nam. Trong lịch sử Việt Nam đã có ba loại văn tự được dùng để ghi chép tiếng Việt là chữ Hán, chữ Nôm và chữ quốc ngữ. Chữ Hán và chữ Nôm là văn tự ngữ tố, mỗi chữ Hán và chữ Nôm biểu thị một hoặc một số âm tiết. Chữ quốc ngữ đã bắt đầu được sử dụng chính thức tại Việt Nam vào đầu thế kỷ XX.[1][2]
+  </p>
+  <div class="section-image">
+    <img src="images/chuviet.jpg" alt="Mô tả ảnh">
+  </div>
+</div>
+	  <div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Phân cấp hành chính Việt Nam thời quân chủ</a>
+  </h2>
+  <p class="section-content">
+    Phân cấp hành chính thời quân chủ Việt Nam được tính từ khi Việt Nam giành được độc lập sau thời kỳ bắc thuộc đến khi người Pháp xâm lược và chiếm đóng hoàn toàn Việt Nam (938 - 1886)
+  </p>
+  <div class="section-image">
+    <img src="images/phancap.jpg" alt="Mô tả ảnh">
+  </div>
+</div>
+	  
+  </div>
+	
+  <div class="sidebar-column">
+  <h3 class="sidebar-title">CÁC THỜI KỲ LỊCH SỬ</h3>
+  <ul class="sidebar-menu">
+    <li><a href="hongbangvanlang.html">Hồng Bàng & Văn Lang</a></li>
+    <li><a href="aulac.html">Âu Lạc & Nam Việt</a></li>
+    <li><a href="bacthuoclan1.html">Bắc thuộc lần I</a></li>
+    <li><a href="trungnuvuong.html">Trưng Nữ Vương</a></li>
+    <li><a href="bacthuoclan2.html">Bắc thuộc lần II</a></li>
+    <li><a href="nhalynhatrieu.html">Nhà Lý & Nhà Triệu</a></li>
+    <li><a href="bacthuoclan3.html">Bắc thuộc lần III</a></li>
+    <li><a href="tuchu.html">Thời kỳ xây nền tự chủ</a></li>
+    <li><a href="nhango.html">Nhà Ngô</a></li>
+    <li><a href="nhadinh.html">Nhà Đinh</a></li>
+    <li><a href="nhatienle.html">Nhà Tiền Lê</a></li>
+    <li><a href="nhaly.html">Nhà Lý</a></li>
+    <li><a href="nhatran.html">Nhà Trần</a></li>
+    <li><a href="nhaho.html">Nhà Hồ</a></li>
+    <li><a href="nhahautran.html">Nhà Hậu Trần</a></li>
+    <li><a href="bacthuoclan4.html">Bắc thuộc lần IV</a></li>
+    <li><a href="nhahaule.html">Nhà Hậu Lê</a></li>
+    <li><a href="nambactrieu.html">Nam Bắc Triều</a></li>
+    <li><a href="trinhnguyen.html">Trịnh Nguyễn Phân Tranh</a></li>
+    <li><a href="nhatayson.html">Nhà Tây Sơn</a></li>
+    <li><a href="nhanguyen.html">Nhà Nguyễn</a></li>
+    <li><a href="phapthuoc.html">Pháp thuộc</a></li>
+    <li><a href="vietnamdcch.html">Việt Nam Dân Chủ Cộng Hòa</a></li>
+    <li><a href="chxhcnvn.html">Cộng hòa XHCN Việt Nam</a></li>
+  </ul>
+</div>
+</div>
+  </section>
+<footer>
+  <div class="footer-container">
+
+  <div class="footer-column">
+    <h3>Anh hùng dân tộc tiêu biểu</h3>
+    <ul>
+      <li><a href="lethaito.html">Lê Thái Tổ</a></li>
+      <li><a href="hochiminh.html">Hồ Chí Minh</a></li>
+      <li><a href="hungvuong.html">Hùng Vương</a></li>
+      <li><a href="lythuongkiet.html">Lý Thường Kiệt</a></li>
+      <li><a href="nguyenhue.html">Nguyễn Huệ</a></li>
+      <li><a href="nguyentrai.html">Nguyễn Trãi</a></li>
+      <li><a href="lynamde.html">Lý Nam Đế</a></li>
+      <li><a href="tranhungdao.html">Trần Hưng Đạo</a></li>
+      <li><a href="dinhtienhoang.html">Đinh Tiên Hoàng</a></li>
+      <li><a href="ngoquyen.html">Ngô Quyền</a></li>
+    </ul>
+  </div>
+
+  <div class="footer-column">
+    <h3>Tư liệu lịch sử</h3>
+    <ul>
+      <li><a href="biengioi_viettrung.html">Vấn đề biên giới Việt-Trung thời Mạc</a></li>
+      <li><a href="ngoaigiaovietnam_tayson.html">Ngoại giao Việt Nam thời Tây Sơn</a></li>
+      <li><a href="bieudocacnhanvatls.html">Biểu đồ các nhân vật lịch sử theo dòng thời gian</a></li>
+      <li><a href="dstrangnguyen.html">Danh sách Trạng nguyên Việt Nam</a></li>
+      <li><a href="ngoaigiaovn_nguyen.html">Ngoại giao Việt Nam thời Nguyễn</a></li>
+      <li><a href="dbptrenkhong_1972.html">Trận Điện Biên Phủ trên không năm 1972</a></li>
+      <li><a href="tranngochoi_dongda.html">Trận Ngọc Hồi - Đống Đa năm 1789</a></li>
+      <li><a href="trancamsa.html">Trận Cẩm Sa năm 1775</a></li>
+      <li><a href="tranrachgam_xoaimut.html">Trận Rạch Gầm – Xoài Mút năm 1785</a></li>
+      <li><a href="lanhthovietnam.html">Lãnh thổ Việt Nam qua từng thời kỳ</a></li>
+    </ul>
+  </div>
+
+  <div class="footer-column">
+    <h3>Di tích lịch sử</h3>
+    <ul>
+      <li><a href="ditichpacbo.html">Khu di tích Pác Bó</a></li>
+      <li><a href="denhung.html">Đền Hùng</a></li>
+      <li><a href="ditich_hcm_phuchutich.html">Khu di tích Chủ tịch Hồ Chí Minh tại Phủ Chủ tịch</a></li>
+      <li><a href="chienkhutantrao.html">Chiến khu Tân Trào</a></li>
+      <li><a href="dentran.html">Đền Trần (Thái Bình)</a></li>
+      <li><a href="denngocson.html">Đền Ngọc Sơn</a></li>
+      <li><a href="thanhcoloa.html">Thành Cổ Loa</a></li>
+      <li><a href="chuathay.html">Chùa Thầy</a></li>
+      <li><a href="ditich_dbp.html">Khu di tích chiến thắng Điện Biên Phủ</a></li>
+      <li><a href="vanmieu_qtg.html">Văn Miếu - Quốc Tử Giám</a></li>
+    </ul>
+  </div>
+
+</div>
+
+    <div class="footer-bottom">
+      <a href="gioithieu.html">Giới thiệu</a> /
+      <a href="https://www.facebook.com/hoangdang2901281230">Trang Facebook</a> 
+    </div>
+  </footer>
+<button id="topButton" onclick="scrollToTop()">
+  <i class="fas fa-arrow-up"></i>
+</button>
+	
+<div id="chatIcon" onclick="toggleChat()">
+  <i class="fas fa-robot"></i>
+</div>
+<div id="chatBox">
+  <div class="chat-header">
+    <span>CHATBOX</span>
+    <i class="fas fa-times" onclick="toggleChat()"></i>
+  </div>
+  <div class="chat-body" id="chatMessages">
+    <!-- Tin nhắn sẽ được thêm ở đây -->
+  </div>
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Gửi tin nhắn..." />
+    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+</body>
+</html>

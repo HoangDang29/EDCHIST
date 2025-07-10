@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link href="Styles/aulac.css" type="text/css" rel="stylesheet"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Trịnh Nguyễn Phân Tranh</title>
+</head>
+<script>
+	//menu for mobile
+  function toggleMenu(button) {
+    const menu = document.getElementById("mainMenu");
+    const bars = button.querySelector(".fa-bars");
+    const times = button.querySelector(".fa-times");
+
+    menu.classList.toggle("show");
+
+    if (menu.classList.contains("show")) {
+      bars.style.display = "none";
+      times.style.display = "inline";
+    } else {
+      bars.style.display = "inline";
+      times.style.display = "none";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuLinks = document.querySelectorAll(".nav-item a");
+    const menu = document.getElementById("mainMenu");
+    const hamburger = document.querySelector(".hamburger");
+    const bars = hamburger.querySelector(".fa-bars");
+    const times = hamburger.querySelector(".fa-times");
+
+    menuLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 768 && menu.classList.contains("show")) {
+          menu.classList.remove("show");
+          bars.style.display = "inline";
+          times.style.display = "none";
+        }
+      });
+    });
+  });
+	// topbutton
+window.onscroll = function() {
+           const topButton = document.getElementById("topButton");
+           if (document.body.scrollTop > 000 || document.documentElement.scrollTop > 000) {
+               topButton.style.display = "block";
+           } else {
+               topButton.style.display = "none";
+           }
+        };
+        function scrollToTop() {
+           window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+	//chatbox
+let chatOpen = false;
+
+  // Danh sách phản hồi tùy chỉnh
+  const responses = {
+    "xin chào": "Chào bạn! Tôi có thể giúp gì cho bạn?",
+    "bạn là ai": "Tôi là trợ lý tư vấn lịch sử đây!",
+    "lịch sử việt nam": "Việt Nam có một lịch sử phong phú kéo dài hơn 4000 năm!",
+    "hồ chí minh": "Chủ tịch Hồ Chí Minh là vị lãnh tụ vĩ đại của dân tộc Việt Nam.",
+    "trần hưng đạo": "Ông là một danh tướng thời Trần, đã đánh bại quân Nguyên Mông.",
+    "điện biên phủ": "Trận Điện Biên Phủ năm 1954 là chiến thắng vang dội của quân đội ta.",
+    "liên hệ": "Bạn có thể liên hệ với chúng tôi qua mục 'Liên hệ' phía dưới.",
+    "tạm biệt": "Cảm ơn bạn đã trò chuyện! Hẹn gặp lại.",
+    "": "Xin lỗi, tôi giúp được gì cho bạn!"
+  };
+
+  // Tìm phản hồi gần đúng
+  function findResponse(message) {
+    message = message.toLowerCase();
+    for (let key in responses) {
+      if (message.includes(key)) {
+        return responses[key];
+      }
+    }
+    return "Xin lỗi, tôi chưa hiểu. Bạn có thể nói lại rõ hơn?";
+  }
+
+  function toggleChat() {
+    const chatBox = document.getElementById("chatBox");
+    const chatMessages = document.getElementById("chatMessages");
+
+    if (!chatOpen) {
+      chatBox.style.display = "flex";
+      setTimeout(() => {
+        addMessage("Xin chào!", "bot-message");
+      }, 300);
+    } else {
+      chatBox.style.display = "none";
+    }
+    chatOpen = !chatOpen;
+  }
+
+  function sendMessage() {
+    const input = document.getElementById("userInput");
+    const message = input.value.trim();
+    if (message !== "") {
+      addMessage(message, "user-message");
+      input.value = "";
+
+      // Bot phản hồi sau 1 giây
+      setTimeout(() => {
+        const reply = findResponse(message);
+        addMessage(reply, "bot-message");
+      }, 1000);
+    }
+  }
+
+  function addMessage(text, className) {
+    const chatMessages = document.getElementById("chatMessages");
+    const msg = document.createElement("div");
+    msg.className = `chat-message ${className}`;
+    msg.innerText = text;
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+	document.addEventListener("DOMContentLoaded", function () {
+  const input = document.getElementById("userInput");
+  input.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Ngăn form reload nếu có
+      sendMessage();
+    }
+  });
+});
+
+</script>
+<body>
+	<div class="banner">
+    	<img src="images/trongdong.gif" alt = "Banner"/>
+  </div>
+  <header>
+    <nav>
+  <div class="navbar-wrapper">
+    <div class="hamburger" onclick="toggleMenu(this)">
+  <i class="fas fa-bars"></i>
+  <i class="fas fa-times" style="display: none;"></i>
+</div>
+    <div class="navbar" id="mainMenu">
+      <div class="nav-item"><b><a href = "index.html" class="trangchu">TRANG CHỦ</a></b></div>
+
+      <div class="nav-item">
+        <b>DÒNG LỊCH SỬ</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          	<a href="hongbangvanlang.html">Hồng Bàng & Văn Lang</a>
+          	<a href="aulac.html">Âu Lạc & Nam Việt</a>
+          	<a href="bacthuoclan1.html">Bắc thuộc lần I</a>
+			<a href="trungnuvuong.html">Trưng Nữ Vương</a>
+			<a href="bacthuoclan2.html">Bắc thuộc lần II</a>
+			<a href="nhalynhatrieu.html">Nhà Lý & Nhà Triệu</a>
+			<a href="bacthuoclan3.html">Bắc thuộc lần III</a>
+			<a href="tuchu.html">Thời kỳ xây nền tự chủ</a>
+			<a href="nhango.html">Nhà Ngô</a>
+			<a href="nhadinh.html">Nhà Đinh</a>
+			<a href="nhatienle.html">Nhà Tiền Lê</a>
+			<a href="nhaly.html">Nhà Lý</a>
+			<a href="nhatran.html">Nhà Trần</a>
+			<a href="nhaho.html">Nhà Hồ</a>
+			<a href="nhahautran.html">Nhà Hậu Trần</a>
+			<a href="bacthuoclan4.html">Bắc thuộc lần IV</a>
+			<a href="nhahaule.html">Nhà Hậu Lê</a>
+			<a href="nambactrieu.html">Nam Bắc Triều</a>
+			<a href="trinhnguyen.html">Trịnh Nguyễn Phân Tranh</a>
+			<a href="nhatayson.html">Nhà Tây Sơn</a>
+			<a href="nhanguyen.html">Nhà Nguyễn</a>
+			<a href="phapthuoc.html">Pháp thuộc</a>
+			<a href="vietnamdcch.html">Việt Nam Dân Chủ Cộng Hòa</a>
+			<a href="chxhcnvn.html">Cộng hòa xã hội chủ nghĩa Việt Nam</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <b>TƯ LIỆU</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="quansu.html">Quân sự</a>
+          <a href="tacpham.html">Tác phẩm</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <b>NHÂN VẬT</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="anhhungdantoc.html">Anh hùng dân tộc</a>
+          <a href="danhnhanvanhoa.html">Danh nhân văn hóa</a>
+        </div>
+      </div>
+
+      <div class="nav-item"><b><a href="ditich.html">DI TÍCH</a></b></div>
+      <div class="nav-item"><b><a href="ngaynay.html">NGÀY NAY</a></b></div>
+      <div class="nav-item"><b><a href="cauhoi.html">Q&A</a></b></div>
+    </div>
+  </div>
+</nav>
+  </header>
+
+  <section class="main-content">
+<div class="search-bar">
+	<div class="breadcrumb">
+    Bạn đang ở:
+    <a href="index.html">Trang chủ</a> /
+    <a href="#">Dòng Lịch Sử</a> /
+    <a href="trinhnguyen.html">Trịnh Nguyễn phân tranh</a>
+  </div>
+  <form action="https://www.google.com/search" method="GET" target="_blank">
+    <input type="text" name="q" placeholder="Tìm kiếm trên Google...">
+    <button type="submit">Tìm kiếm</button>
+  </form>
+</div>
+	  
+<div class="content-wrapper">
+  <div class="main-column">
+    <div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Trịnh Nguyễn Phân Tranh</a>
+  </h2>
+  <p class="section-content">
+    Trịnh-Nguyễn phân tranh là thời kỳ phân chia giữa chế độ "vua Lê chúa Trịnh" ở phía Bắc sông Gianh (sử gọi là Đàng Ngoài) và chúa Nguyễn cai trị ở miền Nam (Đàng Trong), mở đầu khi Trịnh Tráng đem quân đánh Nguyễn Phúc Nguyên năm 1627 và kết thúc vào cuối thế kỷ 18 khi nhà Tây Sơn đánh đổ cả chúa Nguyễn lẫn chúa Trịnh.
+  </p>
+  <p class="section-content">
+    Ban đầu, cả thế lực họ Trịnh và họ Nguyễn đều mang khẩu hiệu "phù Lê diệt Mạc" để lấy lòng thiên hạ và thề trung thành với triều Hậu Lê. Sau khi nhà Mạc đã bị đánh đổ, trên danh nghĩa, cả Chúa Trịnh và Chúa Nguyễn đều là bề tôi của nhà Hậu Lê, cả Đàng Trong lẫn Đàng Ngoài đều là lãnh thổ của nhà Lê. Nhưng trên thực tế thì khác, cả hai đều tạo thế lực cát cứ cho riêng mình, vua nhà Hậu Lê đã không còn thực quyền nên không chặn được sự phân tranh giữa hai họ Trịnh - Nguyễn. Nước Đại Việt trong giai đoạn này bị chia cách hơn 150 năm.
+  </p>
+</div>
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Lê Chiêu Thống - Lê Duy Kỳ</a>
+  </h2>
+  <p class="section-content">
+    Lê Mẫn Đế (Chiêu Thống, 1787-1788)
+  </p>
+    <p class="section-content">
+    Lê Chiêu Thống tên huý là Duy Kỳ, cháu đích tôn của Lê Hiển Tông.
+  </p>
+    <p class="section-content">
+    Duy Kỳ được quân tam phủ đưa từ trại giam về ép vua và chúa Trịnh Khải lập làm Hoàng Thái Tôn.Tháng 7/1786, trước khi vua Lê Hiển Tông mất đã cho gọi Thái Tôn, Duy Kỳ vào trối lời truyền ngôi. Duy Kỳ vừa lạy vừa khóc xin nhận mệnh. Lúc đó Bắc Bình Vương Nguyễn Huệ đã cưới công chúa Ngọc Hân.
+  </p>
+    <p class="section-content">
+    Khi Nguyễn Nhạc và Nguyễn Huệ rút quân về Phú Xuân (Huế) thì các hào mục ở các nơi nổi dậy cắt cứ. Trịnh Bồng cũng trở lại kinh đô Thăng Long tự lập làm nguyên soái Yến Đô vương và lấn át nhà vua như trước, khiến cho triều chính rối ren, chém giết lẫn nhau. Nguyễn Huệ lại phải kéo quân ra Bắc dẹp loạn, chiêu tập các cựu thần văn võ nhà Lê, lấy Sùng Nhượng Công Lê Duy Cận đứng làm Giám quốc và giao cho Ngô Văn Sở làm Đại đô đốc ở Thăng Long, rồi Nguyễn Huệ lại rút quân về Phú Xuân.
+  </p>
+    <p class="section-content">
+    Để khôi phục lại triều Lê, tháng 7/1788 Hoàng thái hậu nhà Lê sang cầu viện nhà Mãn Thanh.
+  </p>
+    <p class="section-content">
+    Dựa vào thế quân Mãn Thanh, Lê Chiêu Thống trở lại kinh đô Thăng Long đã trả thù tàn bạo những người theo Tây Sơn. 
+  </p>
+    <p class="section-content">
+    Mồng 5 tết năm Kỷ Dậu (1789), quân đội Tây Sơn do hoàng đế Quang Trung trực tiếp chỉ huy kéo ra Bắc đã đánh tan 29 vạn quân xâm lược Mãn Thanh ở gò Đống Đa giành độc lập cho tổ quốc ta. Lê Chiêu Thống, vua bán nước, đã cùng 25 bầy tôi chạy theo tàn quân nhà Thanh sang Trung Quốc.
+  </p>
+    <p class="section-content">
+    Sau năm năm sống lưu vong nhục nhã trên đất Mãn Thanh, tháng 10 năm Quý Sửu (1793), Lê Chiêu Thống chết ở Yên Kinh (Trung Quốc) thọ 28 tuổi, ở ngôi vua chưa được 3 năm.
+  </p>
+    <p class="section-content">
+    Như vậy nhà Lê Trung Hưng từ Lê Trang Tông đến vua Lê Chiêu Thống trải qua 16 đời vua với 255 năm trị vì.
+  </p>
+</div>
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Thế Tổ Minh Khang - Thái Vương Trịnh Kiểm</a>
+  </h2>
+  <p class="section-content">
+    Thế tổ Minh khang Thái vương (Trịnh Kiểm, 1545-1570)
+  </p>
+    <p class="section-content">
+    Trịnh Kiểm người làng Sóc Sơn, huyện Vĩnh Lộc, tỉnh Thanh Hoá. Truyện kể rằng: Trịnh Kiểm mồ côi cha từ nhỏ, nhà nghèo hai mẹ con rau cháo nuôi nhau, khi mẹ đã già thì Kiểm đi làm thuê, gánh mướn nuôi mẹ. Một hôm đi làm về, không thấy mẹ, Kiểm bổ đi tìm đến sáng thì được tin mẹ anh đã chết đuối ở vực gần nhà, khi ra vực, Kiểm thấy mối đã đùn thành gò rồi, Kiểm buồn lắm bỏ làng ra đi, vào nương nhờ làm gia tướng cho thái phó Nguyễn Kim.
+  </p>
+    <p class="section-content">
+    Trịnh Kiểm không được học hành nhiều, nhưng rất thông minh, can đảm và mưu lược hơn người. Nguyễn Kim mến tài đem con gái yêu là Ngọc Bảo gả cho Kiểm. Năm 1533, Nguyễn Kim sai Trịnh Kiểm đem quân sang Ai Lao đón Lê Duy Ninh về lập làm vua là Lê Trang Tông. Vua thấy Trịnh Kiểm tướng mạo khác thường, bèn phong cho là Đại tướng quân, lúc đó Kiểm 37 tuổi. 
+  </p>
+    <p class="section-content">
+    Năm Ất Tỵ - 1545, Nguyễn Kim bị hàng tướng nhà Mạc đánh thuốc độc chết, binh quyền về tay Trịnh Kiểm.
+  </p>
+    <p class="section-content">
+    Vua Lê Trang Tông ở ngôi chí tôn nhưng quyền hành đều do Trịnh Kiểm nắm giữ.
+  </p>
+    <p class="section-content">
+    Năm 1548 Trang Tông mất, Trịnh Kiểm lập thái tử Huyên (con Trang Tông) lên nối ngôi là Trung Tông. Vua Trung Tông cũng chỉ ở ngôi được 8 năm thì mất khi mới 22 tuổi, không có con nối ngôi. Trịnh Kiểm muốn nhân dịp này tự lập làm vua, nhưng còn phân vân, bèn sai Phùng Khắc Khoan đi hỏi ý kiến Trạng Trình. Cụ Trạng trả lời với thâm ý khuyên Trịnh Kiểm hãy tôn phò nhà Lê cho thuận lòng dân. Hiểu ý, Trịnh Kiểm sai người đến làng Bố Vệ rước Lê Duy Bang về lập làm vua tức là Lê Anh Tông. 
+  </p>
+    <p class="section-content">
+    Từ khi nắm quyền bính, Trịnh Kiểm ra sức củng cố lực lượng, thu hút nhân tài, nên Nam triều ngày càng mạnh lên. Nhà Mạc (Bắc triều) sai đại tướng Mạc Kính Điển đem quân vào đánh Thanh Hoá tới 10 lần, ngược lại Trịnh Kiểm cũng kéo quân ra đánh Sơn Nam trước sau 6 lần. Nam triều đã lấy lại được các huyện Yên Mô, Yên Khang, Phụng Hoá, Gia Viễn. Năm Kỷ Tỵ - 1569, vua Lê gia phong cho Trịnh Kiểm làm Thượng tướng Thái quốc công và tôn là Thượng phụ. 
+  </p>
+    <p class="section-content">
+    Tháng 2 năm Mậu Ngọ - 1570, Trịnh Kiểm mất, truy tôn làm Minh khang Thái vương, thuỵ là Trung Huân.
+  </p>
+    <p class="section-content">
+    Trịnh Kiểm nắm quyền của Nam triều 26 năm trải qua ba đời vua, thọ 68 tuổi.
+  </p>
+</div>
+      
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Bình An Vương - Trịnh Tùng</a>
+  </h2>
+  <p class="section-content">
+    Bình An Vương (Trịnh Tùng, 1570-1623) 
+  </p>
+    <p class="section-content">
+    Khi Trịnh Kiểm chết, vua Lê Anh Tông trao quyền bính cho Trịnh Cối (con vợ cả của Trịnh Kiểm). Nhưng Trịnh Cối ham mê tửu sắc, ngày càng kiêu ngạo, càn rỡ, các tướng lĩnh không phục.
+  </p>
+    <p class="section-content">
+    Tháng 4 năm Canh Ngọ - 1570, các tướng như Lê Cập Đệ, Trịnh Vĩnh Thiệu, Trịnh Bách, Phan Công Tích đem quân theo về với Trịnh Tùng. Trịnh Tùng là con thứ của Trịnh Kiểm với Ngọc Bảo (con gái Nguyễn Kim). Tùng khôi ngô tuấn tú, có tài thao lược, trọng nhân tài nên được tướng sĩ yêu mến. 
+  </p>
+    <p class="section-content">
+    Trịnh Tùng cùng các tướng sĩ phò giá vua Lê Anh Tông vào thành Vạn Lại, chia quân canh giữ đề phòng Trịnh Cối. Trịnh Cối đích thân đem hơn một vạn quân đến bao vây thành Vạn Lại.
+  </p>
+    <p class="section-content">
+    Hai bên đánh nhau giằng co bảy ngày, vua Lê Anh Tông đứng ra hoà giải cũng không được. Cuối cùng Trịnh Cối phải rút quân về Biện Thượng. 
+  </p>
+    <p class="section-content">
+    Được tin anh em họ Trịnh đánh nhau, tháng 8 năm Canh Ngọ - 1570, vua Mạc sai Mạc Kính Điển đem 10 vạn quân và 700 chiến thuyền vào đánh Thanh Hoá. Trịnh Cối lo sợ, vội đem mẹ, vợ con và các thuộc tướng đến hàng nhà Mạc. Mạc Kính Điển phong cho Cối làm Trung Lương hầu.
+  </p>
+    <p class="section-content">
+    Vua Lê Anh Tông phong cho Trịnh Tùng làm Trưởng quân công, Tiết chế thuỷ bộ chủ dinh cầm quân đánh Mạc.
+  </p>
+    <p class="section-content">
+    Tháng 12 năm đó, sau 4 tháng tấn công vào Thanh Hoá không thắng được. Mạc Kính Điển phải rút quân về Bắc. Trịnh Cối cùng mẹ và vợ con chạy theo quân Mạc.
+  </p>
+    <p class="section-content">
+    Năm Nhâm Thân - 1572, Lê Cập Đệ mưu giết Trịnh Tùng bị lộ, Lê Cập Đệ bị Trịnh Tùng giết chết. Vua Lê Anh Tông sợ hãi đang đêm đem 4 hoàng tử chạy vào thành Nghệ An.
+  </p>
+    <p class="section-content">
+    Trịnh Tùng đưa hoàng tử thứ 5 của vua Lê là Duy Đàm lên làm vua, hiệu là Lê Thế Tông.
+  </p>
+    <p class="section-content">
+    Sau hơn mười năm liên tục mở các cuộc tấn công ra Bắc, cuối cùng Trịnh Tùng đã đánh bại được nhà Mạc. Khôi phục được cố đô Thăng Long vào năm 1592.
+  </p>
+    <p class="section-content">
+    Năm Ất Mùi - 1595, Trịnh Tùng đón vua vào Thăng Long và bắt đầu tổ chức bộ máy cai trị theo quy mô của bậc đế vương. Trịnh Tùng sai sứ sang nhà Minh xin sắc phong cho vua Lê là An Nam thống sứ, và buộc vua Lê phong cho mình làm Đô nguyên suý Tổng quân quốc chính thượng phụ, tước Bình An vương. 
+  </p>
+    <p class="section-content">
+    Trịnh Tùng cho lập phủ liêu riêng gồm đủ cả lục phiên tương đương với lục bộ của triều vua. Phủ chúa toàn quyền đặt quan chức, thu thuế, bắt lính... Vua chỉ có mặt trong những dịp long trọng đặc biệt như tiếp sứ Tàu mà thôi. Từ đấy bắt đầu thời kỳ "vua Lê - chúa Trịnh". Con chúa Trịnh được quyền thế tập gọi là Thế tử.
+  </p>
+    <p class="section-content">
+    Trước sự hống hách lộng quyền của chúa Trịnh, vua Lê Kính Tông đã cùng với con Trịnh Tùng là Trịnh Xuân mưu giết Trịnh Tùng. Việc bại lộ, Trịnh Tùng bức vua thắt cổ chết, lúc đó mới 32 tuổi. Tùng đưa thái tử Duy Kỳ lên ngôi vua là Lê Thần Tông.
+  </p>
+    <p class="section-content">
+    Ngày 20 tháng 6 năm Quý Hợi - 1623, Trịnh Tùng mất, cầm quyền 53 năm, thọ 74 tuổi.
+  </p>
+</div>
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Thanh Đô Vương - Trịnh Tráng</a>
+  </h2>
+  <p class="section-content">
+    Thanh Đô Vương (Trịnh Tráng, 1623-1652) 
+  </p>
+    <p class="section-content">
+    Mạc Kính Khoan đang chiếm cứ Cao Bằng nghe tin Trịnh Tùng chết, các con (Trịnh Xuân, Trịnh Tráng) đánh nhau để giành ngôi chúa, liền từ Cao Bằng kéo hàng vạn quân xuống Gia Lâm. Trịnh Tráng phải rước vua Lê chạy vào Thanh Hoá.
+  </p>
+    <p class="section-content">
+    Tháng 8 năm Quí Hợi - 1523, Trịnh Tráng đem quân ra phá tan quân của Kính Khoan. Kính Khoan một mình chạy thoát thân. Trịnh Tráng lại rước vua Lê trở lại kinh đô, vua Lê phong cho Trịnh Tráng chức Nguyên suý thống quốc chính Thanh Đô Vương. 
+  </p>
+    <p class="section-content">
+    Tạm yên mặt Bắc, Trịnh Tráng lo đối phó mặt Nam. Lúc này ở Đàng Trong, chúa Nguyễn Phúc Nguyên đã ra mặt chống lại chúa Trịnh ở Đàng Ngoài. Trịnh Tráng nhiều lần lấy danh nghĩa vua Lê đem quân đi đánh Phúc Nguyên nhưng quân Nguyễn lợi dụng địa thế hiểm trở, đắp luỹ dài chống cự quyết liệt, quân Trịnh không làm gì được, phải rút về.
+  </p>
+    <p class="section-content">
+    Để thắt chặt thêm quan hệ gắn bó giữa nhà chúa và vua Lê, Trịnh Tráng đem con gái của mình (đã lấy chồng có bốn con với chú họ của vua Lê) gả cho vua Lê, ép vua lập làm Hoàng hậu. Vua Lê phải chấp nhận.
+  </p>
+    <p class="section-content">
+    Năm ất Dậu - 1645, Trịnh Tráng xin vua Lê phong cho con thứ hai là Tây quận công Trịnh Tạc làm Khâm sai tiết chế các sứ thuỷ bộ chủ dinh chương quốc quyền binh, tả tướng thái uý Tây quốc công và được quyền nối ngôi chúa.
+  </p>
+    <p class="section-content">
+    Năm Đinh Dậu - 1657, Trịnh Tráng mất thọ 81 tuổi, ở ngôi chúa 30 năm.
+  </p>
+</div>
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Tây Định Vương - Trịnh Tạc</a>
+  </h2>
+  <p class="section-content">
+    Tây Đô Vương (Trịnh Tạc, 1653-1682)
+  </p>
+    <p class="section-content">
+    Trịnh Tạc là con thứ hai được cha chọn làm Nguyên suý chưởng quốc chính Tây Định Vương từ năm Quí Tỵ - 1653, khi Trịnh Tráng đang còn sống. Sự không chọn Trịnh Toàn là con trưởng nối ngôi chúa đã dẫn đến mâu thuẫn ngấm ngầm giữa Toàn và Tạc. 
+  </p>
+    <p class="section-content">
+    Năm Định Dậu - 1657, Trịnh Tạc đã sai đình thần tống ngục và tra hỏi Trịnh Toàn cho đến chết.
+  </p>
+    <p class="section-content">
+    Năm Đình Mùi - 1667, Trịnh Tạc tự gia phong Đại nguyên soái thượng sư Thái phụ Tây Đô Vương.
+  </p>
+    <p class="section-content">
+    Năm Nhâm Tí - 1672, Trịnh Tạc ép vua Lê đem quân vào đánh chúa Nguyễn một trận lớn ở châu Bố Chính, quân Trịnh chiếm được luỹ Trấn Ninh, huy động 3 vạn quân vượt sông Gianh đánh vào cửa Nhật Lệ. Quân Nguyễn ra sức chống cự nhờ có hệ thống thành luỹ kiên cố, tháng 12/1672, Trịnh Tạc phải rút đại binh về chỉ để Lê Thời Hiến trấn giữ Nghệ An. Từ đó Đàng Ngoài và Đàng Trong tạm ngừng chiến, lấy sông Gianh làm giới tuyến. 
+  </p>
+    <p class="section-content">
+    Tháng 7 năm Giáp Dần - 1674, Trịnh Tạc xin vua Lê phong cho con là Trịnh Căn làm Nguyên soái. Năm Tân Dậu - 1682, Trịnh Tạc mất, thọ 77 tuổi, ở ngôi chúa 29 năm.
+  </p>
+</div>
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Định Nam Vương - Trịnh Căn</a>
+  </h2>
+  <p class="section-content">
+    Định Vương (Trịnh Căn, 1682-1709)
+  </p>
+    <p class="section-content">
+    Trịnh Căn là con trưởng của Trịnh Tạc được nối ngôi chúa là Định Vương. 
+  </p>
+    <p class="section-content">
+    Dưới thời Trịnh Căn, chiến tranh Trịnh - Nguyễn đã tạm dừng. Trịnh Căn có điều kiện để củng cố bộ máy cai trị. Giúp việc cho chúa Trịnh lúc đó có nhiều người đỗ đạt cao như Nguyễn Danh Nho, Nguyễn Tông Quai, Nguyễn Quí Đức, Đặng Đình Tường nên đã ổn định được xã hội, kinh tế phát triển. 
+  </p>
+    <p class="section-content">
+    Bằng nhiều cố gắng ngoại giao, chúa Trịnh buộc nhà Thanh trả lại một số thôn ấp vùng biên giới mà họ đã lấn chiếm của ta, nhưng chưa được nhiều.
+  </p>
+    <p class="section-content">
+    Chúa Trịnh Căn gặp nhiều trắc trở trong việc lập người kế nghiệp. Năm Giáp Tí - 1684, Trịnh Căn phong cho con thứ là Trịnh Bách làm Tiết chế thay cho con cả là Vĩnh đã chết, nhưng đến năm Đinh Mão - 1687, Trịnh Bách lại chết sớm. Trịnh Căn lại phong cho Trịnh Bính là cháu nội đích tôn (con Trịnh Vĩnh) nối ngôi, nhưng đến năm Quí Mùi - 1703, Trịnh Bính cũng chết, Trịnh Căn lại phải phong cho chắt nội (con cả Trịnh Bính) là Trịnh Cương làm Tiết chế An quốc công.
+  </p>
+    <p class="section-content">
+    Năm Kỷ Sửu - 1709, Trịnh Căn mất. Chắt là Trịnh Cương lên nối ngôi. Trịnh Căn thọ 77 tuổi ở ngôi chúa 27 năm.
+  </p>
+</div>
+  </div>
+	
+  <div class="sidebar-column">
+  <h3 class="sidebar-title">CÁC THỜI KỲ LỊCH SỬ</h3>
+  <ul class="sidebar-menu">
+    <li><a href="hongbangvanlang.html">Hồng Bàng & Văn Lang</a></li>
+    <li><a href="aulac.html">Âu Lạc & Nam Việt</a></li>
+    <li><a href="bacthuoclan1.html">Bắc thuộc lần I</a></li>
+    <li><a href="trungnuvuong.html">Trưng Nữ Vương</a></li>
+    <li><a href="bacthuoclan2.html">Bắc thuộc lần II</a></li>
+    <li><a href="nhalynhatrieu.html">Nhà Lý & Nhà Triệu</a></li>
+    <li><a href="bacthuoclan3.html">Bắc thuộc lần III</a></li>
+    <li><a href="tuchu.html">Thời kỳ xây nền tự chủ</a></li>
+    <li><a href="nhango.html">Nhà Ngô</a></li>
+    <li><a href="nhadinh.html">Nhà Đinh</a></li>
+    <li><a href="nhatienle.html">Nhà Tiền Lê</a></li>
+    <li><a href="nhaly.html">Nhà Lý</a></li>
+    <li><a href="nhatran.html">Nhà Trần</a></li>
+    <li><a href="nhaho.html">Nhà Hồ</a></li>
+    <li><a href="nhahautran.html">Nhà Hậu Trần</a></li>
+    <li><a href="bacthuoclan4.html">Bắc thuộc lần IV</a></li>
+    <li><a href="nhahaule.html">Nhà Hậu Lê</a></li>
+    <li><a href="nambactrieu.html">Nam Bắc Triều</a></li>
+    <li><a href="trinhnguyen.html">Trịnh Nguyễn Phân Tranh</a></li>
+    <li><a href="nhatayson.html">Nhà Tây Sơn</a></li>
+    <li><a href="nhanguyen.html">Nhà Nguyễn</a></li>
+    <li><a href="phapthuoc.html">Pháp thuộc</a></li>
+    <li><a href="vietnamdcch.html">Việt Nam Dân Chủ Cộng Hòa</a></li>
+    <li><a href="chxhcnvn.html">Cộng hòa XHCN Việt Nam</a></li>
+  </ul>
+	  <h3 class="sidebar-title">Tư liệu</h3>
+  <ul class="sidebar-menu">
+    <li><a href="dbptrenkhong_1972.html">Trận Điện Biên Phủ trên không năm 1972</a></li>
+    <li><a href="biengioi_taynam.html">Chiến tranh biên giới Tây Nam năm 1975 - 1978</a></li>
+    <li><a href="chiendichmuaxuan.html">Chiến dịch mùa Xuân 1975</a></li>
+    <li><a href="chiendichtaynguyen.html">Chiến dịch Tây Nguyên 1975</a></li>
+    <li><a href="tranmauthan.html">Trận Mậu Thân tại Huế năm 1968</a></li>
+    <li><a href="namquocsonha.html">Nam quốc sơn hà - Bản tuyên ngôn độc lập đầu tiên</a></li>
+    <li><a href="tuyenngondoclap.html">Tuyên ngôn độc lập Việt Nam Dân chủ Cộng hòa</a></li>
+    <li><a href="chuviet.html">Lịch sử Chữ viết tiếng Việt</a></li>
+    <li><a href="hichtuongsi.html">Hịch tướng sĩ - Dụ chư tỳ tướng hịch văn</a></li>
+  </ul>
+</div>
+</div>
+<div class="pagination">
+  <a href="trinhnguyenphantranh2.html">&laquo; Trước</a>
+  <a href="trinhnguyen.html" >1</a>
+  <a href="trinhnguyenphantranh2.html" >2</a>
+  <a href="trinhnguyenphantranh3.html" class="active">3</a>
+  <a href="trinhnguyenphantranh4.html" >4</a>
+  <a href="trinhnguyenphantranh5.html" >5</a>
+  <a href="trinhnguyenphantranh6.html" >6</a>
+  <a href="trinhnguyenphantranh4.html">Tiếp &raquo;</a>
+</div>
+  </section>
+<footer>
+  <div class="footer-container">
+
+  <div class="footer-column">
+    <h3>Anh hùng dân tộc tiêu biểu</h3>
+    <ul>
+      <li><a href="lethaito.html">Lê Thái Tổ</a></li>
+      <li><a href="hochiminh.html">Hồ Chí Minh</a></li>
+      <li><a href="hungvuong.html">Hùng Vương</a></li>
+      <li><a href="lythuongkiet.html">Lý Thường Kiệt</a></li>
+      <li><a href="nguyenhue.html">Nguyễn Huệ</a></li>
+      <li><a href="nguyentrai.html">Nguyễn Trãi</a></li>
+      <li><a href="lynamde.html">Lý Nam Đế</a></li>
+      <li><a href="tranhungdao.html">Trần Hưng Đạo</a></li>
+      <li><a href="dinhtienhoang.html">Đinh Tiên Hoàng</a></li>
+      <li><a href="ngoquyen.html">Ngô Quyền</a></li>
+    </ul>
+  </div>
+
+  <div class="footer-column">
+    <h3>Tư liệu lịch sử</h3>
+    <ul>
+      <li><a href="biengioi_viettrung.html">Vấn đề biên giới Việt-Trung thời Mạc</a></li>
+      <li><a href="ngoaigiaovietnam_tayson.html">Ngoại giao Việt Nam thời Tây Sơn</a></li>
+      <li><a href="bieudocacnhanvatls.html">Biểu đồ các nhân vật lịch sử theo dòng thời gian</a></li>
+      <li><a href="dstrangnguyen.html">Danh sách Trạng nguyên Việt Nam</a></li>
+      <li><a href="ngoaigiaovn_nguyen.html">Ngoại giao Việt Nam thời Nguyễn</a></li>
+      <li><a href="dbptrenkhong_1972.html">Trận Điện Biên Phủ trên không năm 1972</a></li>
+      <li><a href="tranngochoi_dongda.html">Trận Ngọc Hồi - Đống Đa năm 1789</a></li>
+      <li><a href="trancamsa.html">Trận Cẩm Sa năm 1775</a></li>
+      <li><a href="tranrachgam_xoaimut.html">Trận Rạch Gầm – Xoài Mút năm 1785</a></li>
+      <li><a href="lanhthovietnam.html">Lãnh thổ Việt Nam qua từng thời kỳ</a></li>
+    </ul>
+  </div>
+
+  <div class="footer-column">
+    <h3>Di tích lịch sử</h3>
+    <ul>
+      <li><a href="ditichpacbo.html">Khu di tích Pác Bó</a></li>
+      <li><a href="denhung.html">Đền Hùng</a></li>
+      <li><a href="ditich_hcm_phuchutich.html">Khu di tích Chủ tịch Hồ Chí Minh tại Phủ Chủ tịch</a></li>
+      <li><a href="chienkhutantrao.html">Chiến khu Tân Trào</a></li>
+      <li><a href="dentran.html">Đền Trần (Thái Bình)</a></li>
+      <li><a href="denngocson.html">Đền Ngọc Sơn</a></li>
+      <li><a href="thanhcoloa.html">Thành Cổ Loa</a></li>
+      <li><a href="chuathay.html">Chùa Thầy</a></li>
+      <li><a href="ditich_dbp.html">Khu di tích chiến thắng Điện Biên Phủ</a></li>
+      <li><a href="vanmieu_qtg.html">Văn Miếu - Quốc Tử Giám</a></li>
+    </ul>
+  </div>
+
+</div>
+
+    <div class="footer-bottom">
+      <a href="gioithieu.html">Giới thiệu</a> /
+      <a href="https://www.facebook.com/hoangdang2901281230">Trang Facebook</a> 
+    </div>
+  </footer>
+<button id="topButton" onclick="scrollToTop()">
+  <i class="fas fa-arrow-up"></i>
+</button>
+	
+<div id="chatIcon" onclick="toggleChat()">
+  <i class="fas fa-robot"></i>
+</div>
+<div id="chatBox">
+  <div class="chat-header">
+    <span>CHATBOX</span>
+    <i class="fas fa-times" onclick="toggleChat()"></i>
+  </div>
+  <div class="chat-body" id="chatMessages">
+    <!-- Tin nhắn sẽ được thêm ở đây -->
+  </div>
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Gửi tin nhắn..." />
+    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link href="Styles/aulac.css" type="text/css" rel="stylesheet"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Việt Nam Dân Chủ Cộng Hòa</title>
+</head>
+<script>
+	//menu for mobile
+  function toggleMenu(button) {
+    const menu = document.getElementById("mainMenu");
+    const bars = button.querySelector(".fa-bars");
+    const times = button.querySelector(".fa-times");
+
+    menu.classList.toggle("show");
+
+    if (menu.classList.contains("show")) {
+      bars.style.display = "none";
+      times.style.display = "inline";
+    } else {
+      bars.style.display = "inline";
+      times.style.display = "none";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuLinks = document.querySelectorAll(".nav-item a");
+    const menu = document.getElementById("mainMenu");
+    const hamburger = document.querySelector(".hamburger");
+    const bars = hamburger.querySelector(".fa-bars");
+    const times = hamburger.querySelector(".fa-times");
+
+    menuLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 768 && menu.classList.contains("show")) {
+          menu.classList.remove("show");
+          bars.style.display = "inline";
+          times.style.display = "none";
+        }
+      });
+    });
+  });
+	// topbutton
+window.onscroll = function() {
+           const topButton = document.getElementById("topButton");
+           if (document.body.scrollTop > 000 || document.documentElement.scrollTop > 000) {
+               topButton.style.display = "block";
+           } else {
+               topButton.style.display = "none";
+           }
+        };
+        function scrollToTop() {
+           window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+	//chatbox
+let chatOpen = false;
+
+  // Danh sách phản hồi tùy chỉnh
+  const responses = {
+    "xin chào": "Chào bạn! Tôi có thể giúp gì cho bạn?",
+    "bạn là ai": "Tôi là trợ lý tư vấn lịch sử đây!",
+    "lịch sử việt nam": "Việt Nam có một lịch sử phong phú kéo dài hơn 4000 năm!",
+    "hồ chí minh": "Chủ tịch Hồ Chí Minh là vị lãnh tụ vĩ đại của dân tộc Việt Nam.",
+    "trần hưng đạo": "Ông là một danh tướng thời Trần, đã đánh bại quân Nguyên Mông.",
+    "điện biên phủ": "Trận Điện Biên Phủ năm 1954 là chiến thắng vang dội của quân đội ta.",
+    "liên hệ": "Bạn có thể liên hệ với chúng tôi qua mục 'Liên hệ' phía dưới.",
+    "tạm biệt": "Cảm ơn bạn đã trò chuyện! Hẹn gặp lại.",
+    "": "Xin lỗi, tôi giúp được gì cho bạn!"
+  };
+
+  // Tìm phản hồi gần đúng
+  function findResponse(message) {
+    message = message.toLowerCase();
+    for (let key in responses) {
+      if (message.includes(key)) {
+        return responses[key];
+      }
+    }
+    return "Xin lỗi, tôi chưa hiểu. Bạn có thể nói lại rõ hơn?";
+  }
+
+  function toggleChat() {
+    const chatBox = document.getElementById("chatBox");
+    const chatMessages = document.getElementById("chatMessages");
+
+    if (!chatOpen) {
+      chatBox.style.display = "flex";
+      setTimeout(() => {
+        addMessage("Xin chào!", "bot-message");
+      }, 300);
+    } else {
+      chatBox.style.display = "none";
+    }
+    chatOpen = !chatOpen;
+  }
+
+  function sendMessage() {
+    const input = document.getElementById("userInput");
+    const message = input.value.trim();
+    if (message !== "") {
+      addMessage(message, "user-message");
+      input.value = "";
+
+      // Bot phản hồi sau 1 giây
+      setTimeout(() => {
+        const reply = findResponse(message);
+        addMessage(reply, "bot-message");
+      }, 1000);
+    }
+  }
+
+  function addMessage(text, className) {
+    const chatMessages = document.getElementById("chatMessages");
+    const msg = document.createElement("div");
+    msg.className = `chat-message ${className}`;
+    msg.innerText = text;
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+	document.addEventListener("DOMContentLoaded", function () {
+  const input = document.getElementById("userInput");
+  input.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Ngăn form reload nếu có
+      sendMessage();
+    }
+  });
+});
+
+</script>
+<body>
+	<div class="banner">
+    	<img src="images/trongdong.gif" alt = "Banner"/>
+  </div>
+  <header>
+    <nav>
+  <div class="navbar-wrapper">
+    <div class="hamburger" onclick="toggleMenu(this)">
+  <i class="fas fa-bars"></i>
+  <i class="fas fa-times" style="display: none;"></i>
+</div>
+    <div class="navbar" id="mainMenu">
+      <div class="nav-item"><b><a href = "index.html" class="trangchu">TRANG CHỦ</a></b></div>
+
+      <div class="nav-item">
+        <b>DÒNG LỊCH SỬ</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          	<a href="hongbangvanlang.html">Hồng Bàng & Văn Lang</a>
+          	<a href="aulac.html">Âu Lạc & Nam Việt</a>
+          	<a href="bacthuoclan1.html">Bắc thuộc lần I</a>
+			<a href="trungnuvuong.html">Trưng Nữ Vương</a>
+			<a href="bacthuoclan2.html">Bắc thuộc lần II</a>
+			<a href="nhalynhatrieu.html">Nhà Lý & Nhà Triệu</a>
+			<a href="bacthuoclan3.html">Bắc thuộc lần III</a>
+			<a href="tuchu.html">Thời kỳ xây nền tự chủ</a>
+			<a href="nhango.html">Nhà Ngô</a>
+			<a href="nhadinh.html">Nhà Đinh</a>
+			<a href="nhatienle.html">Nhà Tiền Lê</a>
+			<a href="nhaly.html">Nhà Lý</a>
+			<a href="nhatran.html">Nhà Trần</a>
+			<a href="nhaho.html">Nhà Hồ</a>
+			<a href="nhahautran.html">Nhà Hậu Trần</a>
+			<a href="bacthuoclan4.html">Bắc thuộc lần IV</a>
+			<a href="nhahaule.html">Nhà Hậu Lê</a>
+			<a href="nambactrieu.html">Nam Bắc Triều</a>
+			<a href="trinhnguyen.html">Trịnh Nguyễn Phân Tranh</a>
+			<a href="nhatayson.html">Nhà Tây Sơn</a>
+			<a href="nhanguyen.html">Nhà Nguyễn</a>
+			<a href="phapthuoc.html">Pháp thuộc</a>
+			<a href="vietnamdcch.html">Việt Nam Dân Chủ Cộng Hòa</a>
+			<a href="chxhcnvn.html">Cộng hòa xã hội chủ nghĩa Việt Nam</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <b>TƯ LIỆU</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="quansu.html">Quân sự</a>
+          <a href="tacpham.html">Tác phẩm</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <b>NHÂN VẬT</b> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="anhhungdantoc.html">Anh hùng dân tộc</a>
+          <a href="danhnhanvanhoa.html">Danh nhân văn hóa</a>
+        </div>
+      </div>
+
+      <div class="nav-item"><b><a href="ditich.html">DI TÍCH</a></b></div>
+      <div class="nav-item"><b><a href="ngaynay.html">NGÀY NAY</a></b></div>
+      <div class="nav-item"><b><a href="cauhoi.html">Q&A</a></b></div>
+    </div>
+  </div>
+</nav>
+  </header>
+
+  <section class="main-content">
+<div class="search-bar">
+	<div class="breadcrumb">
+    Bạn đang ở:
+    <a href="index.html">Trang chủ</a> /
+    <a href="#">Dòng Lịch Sử</a> /
+    <a href="vietnamdcch.html">Việt Nam Dân Chủ Cộng Hòa</a>
+  </div>
+  <form action="https://www.google.com/search" method="GET" target="_blank">
+    <input type="text" name="q" placeholder="Tìm kiếm trên Google...">
+    <button type="submit">Tìm kiếm</button>
+  </form>
+</div>
+	  
+<div class="content-wrapper">
+  <div class="main-column">
+    <div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Việt Nam Dân Chủ Cộng Hoà</a>
+  </h2>
+  <p class="section-content">
+    Ngày 3/2/1930, Đảng cộng sản Đông Dương ra đời. Dưới sự lãnh đạo của lãnh tụ Nguyễn Ái Quốc, dân tộc ta đã khởi nghĩa làm cuộc Cách mạng tháng Tám (19-8-1945) thành công, đánh đổ đế quốc Pháp và phát xít Nhật.
+  </p>
+  <p class="section-content">
+    Ngày 2/9/1945, Chủ tịch Hồ Chí Minh đọc Tuyên ngôn độc lập tại Quảng trường Ba Đình (lịch sử gọi đây là bản tuyên ngôn độc lập lần thứ 3 của Tổ quốc ta) lập nên nước Việt Nam dân chủ cộng hoà với thủ đô là thành phố Hà Nội, mở đầu một kỷ nguyên mới trong lịch sử dân tộc ta.
+  </p>
+</div>
+      
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Việt Nam trong hơn một năm đầu sau cách mạng tháng Tám</a>
+  </h2>
+  <p class="section-content">
+    Thời gian này, đất nước ta gặp muôn vàn khó khăn thử thách. Xây dựng chính quyền cách mạng, xây dựng chế độ dân chủ nhân dân, diệt giặc đói, diệt giặc dốt, khắc phục khó khăn về tài chính là những nhiệm vụ cấp bách lúc này cần được giải quyết đồng thời với đấu tranh chống ngoại xâm, nội phản để bảo vệ chính quyền, giữ vững thành quả cách mạng và chuẩn bị cho cuộc chiến đấu lâu dài chống thực dân Pháp về sau.
+  </p>
+</div>
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Những năm đầu toàn quốc kháng chiến chống thực dân Pháp</a>
+  </h2>
+  <p class="section-content">
+    (1946 – 1950) Âm mưu, hành động của thực dân Pháp mở rộng chiến tranh xâm lược cả nước ta; quyết định của Đảng, Chính phủ và Chủ tịch Hồ Chí Minh về một cuộc kháng chiến toàn quốc chống Pháp; đường lối kháng chiến chống Pháp của Đảng.
+  </p>
+    <p class="section-content">
+    Cuộc chiến đấu ở thủ đô Hà Nội và các đô thị khác phía Bắc vĩ tuyến 16 mở đầu kháng chiến toàn quốc. Đồng thời với hoạt động chiến đấu là những hoạt động di chuyển và thực hiện "tiêu thổ kháng chiến". Tiếp theo là những hoạt động đẩy mạnh chuẩn bị cho cuộc chiến đấu lâu dài.
+  </p>
+    <p class="section-content">
+    Âm mưu, hành động của địch đánh phá căn cứ địa kháng chiến Việt Bắc. Cuộc chiến đấu của quân và dân ta đánh trả cuộc tiến công Việt Bắc của địch. Sau chiến thắng Việt Bắc, cuộc kháng chiến toàn dân, toàn diện được đẩy mạnh.
+  </p>
+</div>
+      
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Bước phát triển mới của cuộc kháng chiến toàn quốc chống thực dân Pháp</a>
+  </h2>
+  <p class="section-content">
+    (1950 - 1953) là sự phát triển mới của cuộc kháng chiến toàn quốc chống Pháp khi bước vào thu đông 1950:
+  </p>
+    <p class="section-content">
+    - Mở đầu là Chiến dịch tiến công Biên giới thu - đông 1950
+  </p>
+    <p class="section-content">
+    giành thắng lợi. Sau thắng lợi Biên giới, quân ta mở liên tiếp nhiều chiến dịch tiến công và phản công trên cả ba chiến trường (đồng bằng, trung du, miền núi), giành thắng lợi trong các chiến dịch mở ra ở rừng núi (Hoà Bình đông - xuân 1951 - 1952, Tây Bắc thu - đông 1952, Thượng Lào xuân - hè 1953).
+  </p>
+    <p class="section-content">
+    Đế quốc Mĩ ngày càng can thiệp sâu vào cuộc chiến tranh xâm lược Đông Dương. Thực dân Pháp thực hiện Kế hoạch Đờ Lát đờ Tátxinhi (De Lattre dễ Tassigny) với âm mưu giành lại quyền chủ động chiến lược đã mất sau thất bái ở chiến dịch Biên giới.
+  </p>
+    <p class="section-content">
+    - Đảng Cộng sản Đông Dương tổ chức Đại hội đại biểu toàn quốc lần thứ II (2-1951). Đại hội quyết định đưa Đảng ra hoạt động công khai, lấy tên là Đảng Lao động Việt Nam, chủ trương củng cố hậu phương kháng chiến về mọi mặt, đẩy mạnh cuộc kháng chiến đến thắng lợi.
+  </p>
+</div>
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Cuộc kháng chiến chống thực dân pháp kết thúc</a>
+  </h2>
+  <p class="section-content">
+    (1953 - 1954)
+  </p>
+    <p class="section-content">
+    - Pháp - Mĩ đẩy mạnh chiến tranh xâm lược Đông dương, thực hiện Kế hoạch Nava với âm mưu giành thắng lợi quân sự quyết định, “kết thúc chiến tranh trong danh dự” .
+  </p>
+    <p class="section-content">
+    - Chủ trương kế hoạch Đông - Xuân 1953 - 1954 của Đảng, Chủ tịch Hồ Chí Minh về một cuộc tiến công chiến lược và trận "quyết chiến chiến lược" Điện Biên Phủ.
+  </p>
+    <p class="section-content">
+    - Trận thắng Điện Biên Phủ đã quyết định đi đến họp Hội nghị Giơnevơ và kí Hiệp định về chấm dứt chiến tranh, lập lại hoà bình ở Đông Dương.
+  </p>
+</div>
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Xây dựng Chủ Nghĩa Xã Hội ở miền Bắc và đấu tranh chống Mĩ – Ngụy ở miền Nam</a>
+  </h2>
+  <p class="section-content">
+    (1954-1965) trong 10 năm đầu sau ngày kí Hiệp định Giơnevơ:
+  </p>
+    <p class="section-content">
+    - Tình hình, đặc điểm của đất nước sau Hiệp định Giơnevơ và nhiệm vụ cách mạng trong thời kì mới.
+  </p>
+    <p class="section-content">
+    - Miền Bắc tiếp tục hoàn thành cải cách ruộng đất, khôi phục kinh tế, cải tạo xã hội chủ nghĩa và bước đầu xây dựng cơ sở vật chất - kĩ thuật của chủ nghĩa xã hội.
+  </p>
+    <p class="section-content">
+    - Miền Nam đấu tranh chống chế độ Mĩ - Diệm, thực hiện "đồng khởi, tiến tới đánh bại chiến lược "chiến tranh đặc biệt" của Mĩ và tay sai.
+  </p>
+</div>
+<div class="content-section">
+  <h2 class="section-title">
+    <a href="#">Cả nước trực tiếp chiến đấu chống đế quốc Mĩ xâm lược</a>
+  </h2>
+  <p class="section-content">
+    (1965 - 1973) Kháng chiến chống Mĩ cứu nước trong gần 10 năm, kể từ sau khi đế quốc Mĩ phát động chiến lược "chiến tranh cục bộ" ở miền Nam và tiến hành chiến tranh phá hoại bằng không quân và hải quân đối với miền Bắc, đến khi Hiệp định Phụ được kí kết.
+  </p>
+    <p class="section-content">
+    Đây là thời kì cả nước có chiến tranh dưới những hình thức và mức độ khác nhau
+  </p>
+</div>
+	  
+  </div>
+	
+  <div class="sidebar-column">
+  <h3 class="sidebar-title">CÁC THỜI KỲ LỊCH SỬ</h3>
+  <ul class="sidebar-menu">
+    <li><a href="hongbangvanlang.html">Hồng Bàng & Văn Lang</a></li>
+    <li><a href="aulac.html">Âu Lạc & Nam Việt</a></li>
+    <li><a href="bacthuoclan1.html">Bắc thuộc lần I</a></li>
+    <li><a href="trungnuvuong.html">Trưng Nữ Vương</a></li>
+    <li><a href="bacthuoclan2.html">Bắc thuộc lần II</a></li>
+    <li><a href="nhalynhatrieu.html">Nhà Lý & Nhà Triệu</a></li>
+    <li><a href="bacthuoclan3.html">Bắc thuộc lần III</a></li>
+    <li><a href="tuchu.html">Thời kỳ xây nền tự chủ</a></li>
+    <li><a href="nhango.html">Nhà Ngô</a></li>
+    <li><a href="nhadinh.html">Nhà Đinh</a></li>
+    <li><a href="nhatienle.html">Nhà Tiền Lê</a></li>
+    <li><a href="nhaly.html">Nhà Lý</a></li>
+    <li><a href="nhatran.html">Nhà Trần</a></li>
+    <li><a href="nhaho.html">Nhà Hồ</a></li>
+    <li><a href="nhahautran.html">Nhà Hậu Trần</a></li>
+    <li><a href="bacthuoclan4.html">Bắc thuộc lần IV</a></li>
+    <li><a href="nhahaule.html">Nhà Hậu Lê</a></li>
+    <li><a href="nambactrieu.html">Nam Bắc Triều</a></li>
+    <li><a href="trinhnguyen.html">Trịnh Nguyễn Phân Tranh</a></li>
+    <li><a href="nhatayson.html">Nhà Tây Sơn</a></li>
+    <li><a href="nhanguyen.html">Nhà Nguyễn</a></li>
+    <li><a href="phapthuoc.html">Pháp thuộc</a></li>
+    <li><a href="vietnamdcch.html">Việt Nam Dân Chủ Cộng Hòa</a></li>
+    <li><a href="chxhcnvn.html">Cộng hòa XHCN Việt Nam</a></li>
+  </ul>
+	  <h3 class="sidebar-title">Tư liệu</h3>
+  <ul class="sidebar-menu">
+    <li><a href="dbptrenkhong_1972.html">Trận Điện Biên Phủ trên không năm 1972</a></li>
+    <li><a href="biengioi_taynam.html">Chiến tranh biên giới Tây Nam năm 1975 - 1978</a></li>
+    <li><a href="chiendichmuaxuan.html">Chiến dịch mùa Xuân 1975</a></li>
+    <li><a href="chiendichtaynguyen.html">Chiến dịch Tây Nguyên 1975</a></li>
+    <li><a href="tranmauthan.html">Trận Mậu Thân tại Huế năm 1968</a></li>
+    <li><a href="namquocsonha.html">Nam quốc sơn hà - Bản tuyên ngôn độc lập đầu tiên</a></li>
+    <li><a href="tuyenngondoclap.html">Tuyên ngôn độc lập Việt Nam Dân chủ Cộng hòa</a></li>
+    <li><a href="chuviet.html">Lịch sử Chữ viết tiếng Việt</a></li>
+    <li><a href="hichtuongsi.html">Hịch tướng sĩ - Dụ chư tỳ tướng hịch văn</a></li>
+  </ul>
+</div>
+</div>
+<div class="pagination">
+  <a href="#">&laquo; Trước</a>
+  <a href="vietnamdcch.html" class="active">1</a>
+  <a href="vietnamdcch2.html" >2</a>
+  <a href="vietnamdcch2.html">Tiếp &raquo;</a>
+</div>
+  </section>
+<footer>
+  <div class="footer-container">
+
+  <div class="footer-column">
+    <h3>Anh hùng dân tộc tiêu biểu</h3>
+    <ul>
+      <li><a href="lethaito.html">Lê Thái Tổ</a></li>
+      <li><a href="hochiminh.html">Hồ Chí Minh</a></li>
+      <li><a href="hungvuong.html">Hùng Vương</a></li>
+      <li><a href="lythuongkiet.html">Lý Thường Kiệt</a></li>
+      <li><a href="nguyenhue.html">Nguyễn Huệ</a></li>
+      <li><a href="nguyentrai.html">Nguyễn Trãi</a></li>
+      <li><a href="lynamde.html">Lý Nam Đế</a></li>
+      <li><a href="tranhungdao.html">Trần Hưng Đạo</a></li>
+      <li><a href="dinhtienhoang.html">Đinh Tiên Hoàng</a></li>
+      <li><a href="ngoquyen.html">Ngô Quyền</a></li>
+    </ul>
+  </div>
+
+  <div class="footer-column">
+    <h3>Tư liệu lịch sử</h3>
+    <ul>
+      <li><a href="biengioi_viettrung.html">Vấn đề biên giới Việt-Trung thời Mạc</a></li>
+      <li><a href="ngoaigiaovietnam_tayson.html">Ngoại giao Việt Nam thời Tây Sơn</a></li>
+      <li><a href="bieudocacnhanvatls.html">Biểu đồ các nhân vật lịch sử theo dòng thời gian</a></li>
+      <li><a href="dstrangnguyen.html">Danh sách Trạng nguyên Việt Nam</a></li>
+      <li><a href="ngoaigiaovn_nguyen.html">Ngoại giao Việt Nam thời Nguyễn</a></li>
+      <li><a href="dbptrenkhong_1972.html">Trận Điện Biên Phủ trên không năm 1972</a></li>
+      <li><a href="tranngochoi_dongda.html">Trận Ngọc Hồi - Đống Đa năm 1789</a></li>
+      <li><a href="trancamsa.html">Trận Cẩm Sa năm 1775</a></li>
+      <li><a href="tranrachgam_xoaimut.html">Trận Rạch Gầm – Xoài Mút năm 1785</a></li>
+      <li><a href="lanhthovietnam.html">Lãnh thổ Việt Nam qua từng thời kỳ</a></li>
+    </ul>
+  </div>
+
+  <div class="footer-column">
+    <h3>Di tích lịch sử</h3>
+    <ul>
+      <li><a href="ditichpacbo.html">Khu di tích Pác Bó</a></li>
+      <li><a href="denhung.html">Đền Hùng</a></li>
+      <li><a href="ditich_hcm_phuchutich.html">Khu di tích Chủ tịch Hồ Chí Minh tại Phủ Chủ tịch</a></li>
+      <li><a href="chienkhutantrao.html">Chiến khu Tân Trào</a></li>
+      <li><a href="dentran.html">Đền Trần (Thái Bình)</a></li>
+      <li><a href="denngocson.html">Đền Ngọc Sơn</a></li>
+      <li><a href="thanhcoloa.html">Thành Cổ Loa</a></li>
+      <li><a href="chuathay.html">Chùa Thầy</a></li>
+      <li><a href="ditich_dbp.html">Khu di tích chiến thắng Điện Biên Phủ</a></li>
+      <li><a href="vanmieu_qtg.html">Văn Miếu - Quốc Tử Giám</a></li>
+    </ul>
+  </div>
+
+</div>
+
+    <div class="footer-bottom">
+      <a href="gioithieu.html">Giới thiệu</a> /
+      <a href="https://www.facebook.com/hoangdang2901281230">Trang Facebook</a> 
+    </div>
+  </footer>
+<button id="topButton" onclick="scrollToTop()">
+  <i class="fas fa-arrow-up"></i>
+</button>
+	
+<div id="chatIcon" onclick="toggleChat()">
+  <i class="fas fa-robot"></i>
+</div>
+<div id="chatBox">
+  <div class="chat-header">
+    <span>CHATBOX</span>
+    <i class="fas fa-times" onclick="toggleChat()"></i>
+  </div>
+  <div class="chat-body" id="chatMessages">
+    <!-- Tin nhắn sẽ được thêm ở đây -->
+  </div>
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Gửi tin nhắn..." />
+    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+</body>
+</html>
